@@ -1,0 +1,11 @@
+# Ignore dependencies
+node_modules/
+
+# Ignore production build outputs
+dist/
+build/
+
+# Ignore local environment keys and system lockfiles
+.env*
+package-lock.json
+*.log
