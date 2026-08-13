@@ -23,7 +23,6 @@ export class LoggingInterceptor<T> implements NestInterceptor<T, Response<T>> {
             tap(() => {
                 const endTime = Date.now();
                 const duration = endTime - startTime;
-
                 console.log(`<<< [AFTER] Outgoing Request: ${method} ${url} took ${duration}ms `);
             }),
             map((data) => ({
