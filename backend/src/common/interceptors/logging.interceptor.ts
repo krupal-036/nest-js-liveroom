@@ -25,12 +25,12 @@ export class LoggingInterceptor<T> implements NestInterceptor<T, Response<T>> {
                 const duration = endTime - startTime;
                 console.log(`<<< [AFTER] Outgoing Request: ${method} ${url} took ${duration}ms `);
             }),
-            map((data) => ({
-                success: true,
-                statusCode: response.statusCode,
-                timestamp: new Date().toISOString(),
-                data,
-            })),
+            // map((data) => ({
+            //     success: true,
+            //     statusCode: response.statusCode,
+            //     timestamp: new Date().toISOString(),
+            //     data,
+            // })),
         );
     }
 }
