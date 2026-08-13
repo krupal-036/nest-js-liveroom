@@ -1,0 +1,20 @@
+{
+  "name": "nest-js-liveroom",
+  "version": "1.0.0",
+  "description": "**NestJS-Liveroom** is a real-time WebSocket application demonstrating a production-oriented approach to dynamic room management. It combines **NestJS, Socket.IO, and React** to create scalable live rooms where clients can dynamically join, communicate, and synchronize real-time state.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krupal-036/nest-js-liveroom.git"
+  },
+  "keywords": [],
+  "author": "krupal-036",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/krupal-036/nest-js-liveroom/issues"
+  },
+  "homepage": "https://github.com/krupal-036/nest-js-liveroom#readme"
+}

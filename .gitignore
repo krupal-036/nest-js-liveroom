@@ -1,24 +1,102 @@
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
+# ================================
+# Dependencies
+# ================================
+node_modules/
+**/node_modules/
 
+# ================================
+# Build / Distribution
+# ================================
+dist/
+**/dist/
+
+build/
+**/build/
+
+.next/
+**/.next/
+
+out/
+**/out/
+
+coverage/
+**/coverage/
+
+# NestJS
+.nest/
+
+# Temporary files
+tmp/
+**/tmp/
+
+temp/
+**/temp/
+
+.temp/
+**/.temp/
+
+.tmp/
+**/.tmp/
+
+# ================================
 # Logs
-logs
+# ================================
+logs/
 *.log
+
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# dotenv environment variable files
+# ================================
+# Environment Variables
+# ================================
 .env
-.env.development
-.env.test
-.env.production
+.env.*
+!.env.example
 
-# temp directory
-.temp
-.tmp
+# ================================
+# TypeScript
+# ================================
+*.tsbuildinfo
+
+# ================================
+# React / Vite
+# ================================
+.vite/
+**/.vite/
+
+# ================================
+# Testing
+# ================================
+.nyc_output/
+
+# ================================
+# OS Files
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# IDE / Editors
+# ================================
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+.idea/
+*.swp
+*.swo
+
+# ================================
+# Misc
+# ================================
+.cache/
+**/.cache/
+
+.eslintcache
