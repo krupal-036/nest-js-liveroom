@@ -21,7 +21,7 @@ export class UsersController {
         res.cookie('token', token, {
             httpOnly: true,
             secure: AppConfig.NODE_ENV === 'production',
-            sameSite: 'lax',
+            sameSite: AppConfig.NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 30 * 24 * 60 * 60 * 1000,
         });
         return { payload };
