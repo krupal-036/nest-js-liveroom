@@ -46,6 +46,9 @@ class EnvironmentVar {
 
     @IsString()
     public readonly ADMIN_PASSWORD: string;
+
+    @IsString()
+    public readonly FRONTEND_URL: string;
 }
 
 const loadAndValidateConfig = () => {
@@ -63,6 +66,7 @@ const loadAndValidateConfig = () => {
 
     return Object.freeze({
         ...validatedConfig,
+        PORT: Number(process.env.PORT) || 3000,
         MongoforRoot: MongooseModule.forRoot(validatedConfig.MONGO_URI, {
             dbName: validatedConfig.MONGO_DATABASE,
             bufferCommands: false,
@@ -83,7 +87,7 @@ const loadAndValidateConfig = () => {
             password: validatedConfig.MYSQL_PASSWORD!,
             database: validatedConfig.MYSQL_DATABASE!,
             entities: [UserEntity],
-            synchronize: true,
+            synchronize: validatedConfig.NODE_ENV !== 'production',
         }),
         MonogoforFeature: MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
         MysqlforFeature: TypeOrmModule.forFeature([UserEntity]),

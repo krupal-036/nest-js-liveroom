@@ -17,11 +17,11 @@ async function bootstrap() {
         credentials: true,
     });
 
-    if(AppConfig.NODE_ENV !== 'production') {
-      app.use(new LoggerMiddleware().use);
+    if (AppConfig.NODE_ENV !== 'production') {
+        app.use(new LoggerMiddleware().use);
     }
 
-    await app.listen(AppConfig.PORT);
+    await app.listen(AppConfig.PORT, '0.0.0.0');
 }
 
 bootstrap();
