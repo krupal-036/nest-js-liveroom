@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
     },
     
     build: {
-      outDir: '../backend/public',
+      outDir: 'dist',
       emptyOutDir: true,
       target: 'node14', 
       modulePreload: false, 
