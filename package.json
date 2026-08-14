@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cd backend && npm run start",
     "build": "npm run build:frontend && npm run copy:frontend && npm run build:backend",
-    "build:frontend": "cd frontend && npm run build",
+    "postbuild": "node scripts/generate-sitemap.js",
+    "build:frontend": "npm run postbuild && cd frontend && npm run build",
     "copy:frontend": "node scripts/copy-frontend.js",
     "build:backend": "cd backend && npm run build",
     "dev": "concurrently -p \"[{name}]\" -n \"FRONTEND,BACKEND\" -c \"cyan,magenta\" \"cd frontend && npm run dev\" \"cd backend && npm run start:dev\"",
