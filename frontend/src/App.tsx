@@ -9,6 +9,8 @@ import { AdminPanel } from './components/AdminPanel';
 import { HomePage } from './components/HomePage';
 import { AboutPage } from './components/AboutPage';
 import { LoadingScreen } from './components/LoadingScreen';
+import { BackToTop } from './components/common/BackToTop';
+import { NotFound } from './components/NotFound';
 
 const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();
@@ -36,7 +38,7 @@ const AppRoutes: React.FC = () => {
             <Route path="/auth" element={user ? <Navigate to="/chat" replace /> : <AuthPage />} />
             <Route path="/chat" element={<ProtectedRoute><ChatApp /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
         </Routes>
     );
 };
@@ -47,6 +49,7 @@ function App() {
             <AuthProvider>
                 <AlertProvider>
                     <BrowserRouter>
+                        <BackToTop />
                         <ScrollToTop />
                         <AppRoutes />
                     </BrowserRouter>
