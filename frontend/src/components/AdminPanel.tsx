@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useAlert } from '../context/AlertContext';
 import { API_URL } from '../utils/getApiURL';
-import { FiShield, FiTrash2, FiCheckCircle, FiArrowLeft, FiUsers, FiRefreshCw, FiAlertTriangle } from 'react-icons/fi';
+import { FiShield, FiTrash2, FiCheckCircle, FiArrowLeft, FiUsers, FiRefreshCw, FiAlertTriangle, FiSettings, FiLogIn, FiUserPlus } from 'react-icons/fi';
 import { FaBan } from 'react-icons/fa';
 import { ThemeToggle } from './ThemeToggle';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,13 @@ interface User {
     isBlacklisted: boolean;
 }
 
+interface SystemSettings {
+    configName: string;
+    isLoginEnabled: boolean;
+    isSignupEnabled: boolean;
+    createdAt: string;
+}
+
 const rowGrid = 'md:grid-cols-[minmax(0,1.5fr)_110px_130px_minmax(0,1fr)_auto]';
 
 export const AdminPanel = () => {
@@ -25,6 +32,11 @@ export const AdminPanel = () => {
     const [loading, setLoading] = useState(true);
     const [pendingDelete, setPendingDelete] = useState<User | null>(null);
     const [isDeleting, setIsDeleting] = useState(false);
+
+    const [settings, setSettings] = useState<SystemSettings | null>(null);
+    const [settingsLoading, setSettingsLoading] = useState(true);
+    const [settingsUpdating, setSettingsUpdating] = useState(false)
+
     const navigate = useNavigate();
     const fetchUsers = async () => {
         try {
@@ -42,7 +54,7 @@ export const AdminPanel = () => {
         }
     };
 
-    useEffect(() => { fetchUsers(); }, []);
+    useEffect(() => { fetchUsers(); fetchSettings() }, []);
 
     const handleAction = async (id: string, endPoint: string, action: string, value: any) => {
         try {
@@ -65,6 +77,80 @@ export const AdminPanel = () => {
             showAlert(`The user was successfully ${verb}.`, 'Update applied', 2);
         } catch (e) {
             showAlert('The action could not be completed. Please try again.', 'Action failed', 1);
+        }
+    };
+
+    const fetchSettings = async () => {
+        try {
+            setSettingsLoading(true);
+
+            const res = await fetch(`${API_URL}system-settings`, {
+                credentials: 'include',
+            });
+
+            if (!res.ok) {
+                throw new Error('Failed to fetch system settings');
+            }
+
+            const data = await res.json();
+            setSettings(data);
+        } catch (e) {
+            console.error('Failed to fetch system settings');
+            showAlert(
+                'Failed to load system settings. Please try again.',
+                'Settings failed',
+                1,
+            );
+        } finally {
+            setSettingsLoading(false);
+        }
+    };
+
+    const updateSetting = async (
+        key: 'isLoginEnabled' | 'isSignupEnabled',
+        value: boolean,
+    ) => {
+        if (!settings || settingsUpdating) return;
+
+        try {
+            setSettingsUpdating(true);
+
+            const res = await fetch(`${API_URL}system-settings/auth`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    [key]: value,
+                }),
+            });
+
+            if (!res.ok) {
+                throw new Error('Failed to update system settings');
+            }
+
+            const updatedSettings = await res.json();
+
+            setSettings(updatedSettings);
+
+            showAlert(
+                key === 'isLoginEnabled'
+                    ? `User login has been ${value ? 'enabled' : 'disabled'}.`
+                    : `User signup has been ${value ? 'enabled' : 'disabled'}.`,
+                'Settings updated',
+                2,
+            );
+        } catch (e) {
+            console.error('Failed to update system settings');
+
+            showAlert(
+                'The setting could not be updated. Please try again.',
+                'Update failed',
+                1,
+            );
+        } finally {
+            setSettingsUpdating(false);
         }
     };
 
@@ -162,6 +248,152 @@ export const AdminPanel = () => {
                         </div>
                     ))}
                 </div>
+
+                <div
+                    className="mb-6 overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-card dark:border-stone-800/80 dark:bg-ink animate-rise-in"
+                    style={{ animationDelay: '40ms' }}
+                >
+                    <div className="flex items-center justify-between gap-3 border-b border-stone-100 px-5 py-4 dark:border-stone-800">
+                        <div>
+                            <h2 className="flex items-center gap-2 text-sm font-bold text-stone-800 dark:text-stone-200">
+                                <FiSettings className="h-4 w-4 text-emerald-500" />
+                                Site Settings
+                            </h2>
+
+                            <p className="mt-1 text-xs text-stone-400 dark:text-stone-500">
+                                Control public login and signup availability.
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={fetchSettings}
+                            disabled={settingsLoading}
+                            aria-label="Refresh site settings"
+                            title="Refresh settings"
+                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-stone-200 bg-white text-stone-500 transition-all hover:border-emerald-300 hover:text-emerald-600 active:scale-95 disabled:opacity-50 dark:border-stone-700 dark:bg-ink-soft dark:text-stone-400 dark:hover:border-emerald-500/40 dark:hover:text-emerald-400"
+                        >
+                            <FiRefreshCw
+                                className={`h-4 w-4 ${settingsLoading ? 'animate-spin' : ''
+                                    }`}
+                            />
+                        </button>
+                    </div>
+
+                    {settingsLoading ? (
+                        <div className="grid gap-3 p-5 sm:grid-cols-2">
+                            {[0, 1].map((i) => (
+                                <div
+                                    key={i}
+                                    className="h-24 animate-pulse rounded-xl bg-stone-100 dark:bg-stone-800"
+                                />
+                            ))}
+                        </div>
+                    ) : settings ? (
+                        <div className="grid gap-3 p-5 sm:grid-cols-2">
+                            {/* Login Setting */}
+                            <div className="flex items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50/50 p-4 dark:border-stone-800 dark:bg-stone-900/30">
+                                <div className="flex min-w-0 items-center gap-3">
+                                    <span
+                                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${settings.isLoginEnabled
+                                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                                            : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                                            }`}
+                                    >
+                                        <FiLogIn className="h-5 w-5" />
+                                    </span>
+
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-semibold text-stone-800 dark:text-stone-200">
+                                            User Login
+                                        </p>
+
+                                        <p className="mt-0.5 text-xs text-stone-400 dark:text-stone-500">
+                                            {settings.isLoginEnabled
+                                                ? 'Users can log in'
+                                                : 'User login is disabled'}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    role="switch"
+                                    aria-checked={settings.isLoginEnabled}
+                                    disabled={settingsUpdating}
+                                    onClick={() =>
+                                        updateSetting(
+                                            'isLoginEnabled',
+                                            !settings.isLoginEnabled,
+                                        )
+                                    }
+                                    className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:cursor-not-allowed ${settings.isLoginEnabled    
+                                            ? 'bg-emerald-500'
+                                            : 'bg-stone-300 dark:bg-stone-700'
+                                        }`}
+                                >
+                                    <span
+                                        className={`block h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${settings.isLoginEnabled
+                                                ? 'translate-x-5'
+                                                : 'translate-x-0'
+                                            }`}
+                                    />
+                                </button>
+                            </div>
+
+                            {/* Signup Setting */}
+                            <div className="flex items-center justify-between gap-4 rounded-xl border border-stone-200 bg-stone-50/50 p-4 dark:border-stone-800 dark:bg-stone-900/30">
+                                <div className="flex min-w-0 items-center gap-3">
+                                    <span
+                                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${settings.isSignupEnabled
+                                            ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                                            : 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                                            }`}
+                                    >
+                                        <FiUserPlus className="h-5 w-5" />
+                                    </span>
+
+                                    <div className="min-w-0">
+                                        <p className="text-sm font-semibold text-stone-800 dark:text-stone-200">
+                                            User Signup
+                                        </p>
+
+                                        <p className="mt-0.5 text-xs text-stone-400 dark:text-stone-500">
+                                            {settings.isSignupEnabled
+                                                ? 'New users can register'
+                                                : 'New user registration is disabled'}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    role="switch"
+                                    aria-checked={settings.isSignupEnabled}
+                                    disabled={settingsUpdating}
+                                    onClick={() =>
+                                        updateSetting(
+                                            'isSignupEnabled',
+                                            !settings.isSignupEnabled,
+                                        )
+                                    }
+                                    className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full p-1 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 disabled:cursor-not-allowed ${settings.isSignupEnabled
+                                            ? 'bg-emerald-500'
+                                            : 'bg-stone-300 dark:bg-stone-700'
+                                        }`}
+                                >
+                                    <span
+                                        className={`block h-5 w-5 rounded-full bg-white shadow-sm transition-transform duration-200 ${settings.isSignupEnabled
+                                                ? 'translate-x-5'
+                                                : 'translate-x-0'
+                                            }`}
+                                    />
+                                </button>
+                            </div>
+                        </div>
+                    ) : null}
+                </div>
+
 
                 {/* Users table */}
                 <div className="overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-card dark:border-stone-800/80 dark:bg-ink animate-rise-in" style={{ animationDelay: '80ms' }}>
