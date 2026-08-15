@@ -8,9 +8,10 @@ import { AppConfig } from 'src/common/config/AppConfig';
 import { UserRepository } from './repositories/UserRepository';
 import { MongooseUserRepo } from './repositories/MongooseUserRepo';
 import { MysqlUserRepo } from './repositories/MysqlUserRepo';
+import { SystemSettingsModule } from 'src/system-settings/system-settings.module';
 
 @Module({
-    imports: [AppConfig.IS_MONGO ? AppConfig.MonogoforFeature : AppConfig.MysqlforFeature],
+    imports: [AppConfig.IS_MONGO ? AppConfig.MonogoforFeature : AppConfig.MysqlforFeature, SystemSettingsModule],
     controllers: [UsersController],
     providers: [
         UsersService,

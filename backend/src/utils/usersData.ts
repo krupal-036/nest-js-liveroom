@@ -1,6 +1,6 @@
 import { AppConfig } from 'src/common/config/AppConfig';
 import { UserRole } from 'src/enums/UserRole';
-import { CreateSeedUserDto } from 'src/seeder/dto/create-seed-user.dto';
+import { CreateSeedUserDto } from 'src/seeding/dto/create-seed-user.dto';
 
 export const USERS: CreateSeedUserDto[] = [
     {

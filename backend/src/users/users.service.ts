@@ -6,12 +6,14 @@ import { comparePassword } from 'src/utils/passwordUtils';
 import { UserRepository } from './repositories/UserRepository';
 import { UserRole } from 'src/enums/UserRole';
 import { JwtUserPayLoad } from 'src/types/types';
+import { SystemSettingsService } from 'src/system-settings/system-settings.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         private readonly usersRepo: UserRepository,
         private readonly jwtService: JwtService,
+        private readonly systemSettingsService: SystemSettingsService,
     ) { }
 
     async login(body: UpdateUserDto) {
@@ -23,6 +25,17 @@ export class UsersService {
 
         if (!(await comparePassword(body.password!, user.password))) {
             throw new BadRequestException('Invalid credentials');
+        }
+
+        if (user.role !== UserRole.ADMIN) {
+            const isLoginEnabled =
+                await this.systemSettingsService.isLoginEnabled();
+
+            if (!isLoginEnabled) {
+                throw new ForbiddenException(
+                    'Login is currently disabled by the administrator.',
+                );
+            }
         }
 
         const payload: JwtUserPayLoad = {
@@ -38,6 +51,12 @@ export class UsersService {
     }
 
     async create(createUserDto: CreateUserDto) {
+        const isSignupEnabled = await this.systemSettingsService.isSignupEnabled();
+
+        if (!isSignupEnabled) {
+            throw new ForbiddenException('Signup is currently disabled by the administrator.');
+        }
+
         if (createUserDto.role === UserRole.ADMIN || createUserDto.username === UserRole.ADMIN) {
             throw new BadRequestException(
                 'Admin account creation is disabled. All admin accounts have already been seeded.',

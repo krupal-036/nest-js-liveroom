@@ -8,6 +8,7 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { AppConfig } from 'src/common/config/AppConfig';
 import { Request, type Response } from 'express';
 import { JwtUserPayLoad } from 'src/types/types';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('users')
 export class UsersController {
@@ -15,6 +16,7 @@ export class UsersController {
 
     @Public()
     @Post('login')
+    @Throttle({ default: { limit: 5, ttl: 900000 } })
     @HttpCode(HttpStatus.OK)
     async login(@Body() body: UpdateUserDto, @Res({ passthrough: true }) res: Response) {
         const { token, payload } = await this.usersService.login(body);
@@ -35,6 +37,7 @@ export class UsersController {
     }
 
     @Public()
+    @Throttle({ default: { limit: 5, ttl: 900000 } })
     @Post()
     create(@Body() createUserDto: CreateUserDto) {
         return this.usersService.create(createUserDto);
