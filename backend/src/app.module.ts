@@ -30,10 +30,14 @@ import { SystemSettingsModule } from './system-settings/system-settings.module';
         });
       },
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: LoggingInterceptor
-    },
+    ...(AppConfig.NODE_ENV !== 'production'
+        ? [
+              {
+                  provide: APP_INTERCEPTOR,
+                  useClass: LoggingInterceptor,
+              },
+          ]
+        : []),
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,

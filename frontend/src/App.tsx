@@ -10,7 +10,6 @@ import { HomePage } from './components/HomePage';
 import { AboutPage } from './components/AboutPage';
 import { LoadingScreen } from './components/LoadingScreen';
 
-/* Reset scroll position on route change (marketing pages) */
 const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();
     useEffect(() => {
@@ -19,7 +18,6 @@ const ScrollToTop: React.FC = () => {
     return null;
 };
 
-/* Route guard — preserves the original auth gate */
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { user } = useAuth();
     if (!user) return <Navigate to="/auth" replace />;
@@ -29,7 +27,6 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 const AppRoutes: React.FC = () => {
     const { user, isLoading } = useAuth();
 
-    /* Original loading behavior preserved */
     if (isLoading) return <LoadingScreen />;
 
     return (

@@ -51,7 +51,7 @@ class EnvironmentVar {
     public readonly ADMIN_PASSWORD: string;
 
     @IsString()
-    public readonly FRONTEND_URL: string;
+    public readonly ALLOWED_ORIGINS: string;
 }
 
 const loadAndValidateConfig = () => {
