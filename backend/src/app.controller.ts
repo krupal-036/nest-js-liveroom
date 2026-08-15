@@ -5,7 +5,7 @@ import os from 'node:os';
 
 @Controller()
 export class AppController {
-    @Public()    
+    @Public()
     @Get('health')
     @HttpCode(HttpStatus.OK)
     getHello() {
@@ -26,7 +26,7 @@ export class AppController {
             }
         };
     }
-    
+
     @Public()
     @Get('database')
     getDatabaseType(): any {

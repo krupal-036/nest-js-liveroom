@@ -6,6 +6,9 @@ import { IsNumber, IsString, validateSync } from 'class-validator';
 import { DATABASE_TYPE } from 'src/enums/Database';
 import { User, UserSchema } from 'src/users/entities/user.mongoose.entity';
 import { UserEntity } from 'src/users/entities/user.mysql.entity';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { SystemSettings, SystemSettingsSchema } from 'src/system-settings/entities/system-settings.schema';
+import { SystemSettingsEntity } from 'src/system-settings/entities/system-settings.entity';
 
 class EnvironmentVar {
     @IsNumber()
@@ -86,11 +89,26 @@ const loadAndValidateConfig = () => {
             username: validatedConfig.MYSQL_USERNAME! || 'root',
             password: validatedConfig.MYSQL_PASSWORD!,
             database: validatedConfig.MYSQL_DATABASE!,
-            entities: [UserEntity],
+            entities: [UserEntity, SystemSettingsEntity],
             synchronize: validatedConfig.NODE_ENV !== 'production',
         }),
-        MonogoforFeature: MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
-        MysqlforFeature: TypeOrmModule.forFeature([UserEntity]),
+        ThrottlerModule: ThrottlerModule.forRoot({
+            throttlers: [{
+                ttl: 900000,
+                limit: 200,
+            }]
+        }),
+        MonogoforFeature: MongooseModule.forFeature([
+            {
+                name: User.name,
+                schema: UserSchema
+            },
+            {
+                name: SystemSettings.name,
+                schema: SystemSettingsSchema,
+            }
+        ]),
+        MysqlforFeature: TypeOrmModule.forFeature([UserEntity, SystemSettingsEntity]),
         IS_MONGO: validatedConfig.DB_TYPE === 'mongodb',
         JwtModule: JwtModule.register({
             global: true,
