@@ -6,7 +6,7 @@ import { ParseObjectIdPipe } from '@nestjs/mongoose';
 import { Public } from '../common/decorators/public.decorator';
 import { Roles } from '../common/decorators/roles.decorator';
 import { AppConfig } from 'src/common/config/AppConfig';
-import { Request, type Response } from 'express';
+import type { Request,  Response } from 'express';
 import { JwtUserPayLoad } from 'src/types/types';
 import { Throttle } from '@nestjs/throttler';
 
@@ -31,7 +31,8 @@ export class UsersController {
 
     @Roles('admin', 'user')
     @Post('logout')
-    logout(@Res({ passthrough: true }) res: Response) {
+    logout(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
+        this.usersService.logout(req?.cookies.token);
         res.clearCookie('token');
         return { success: true };
     }

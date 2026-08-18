@@ -59,7 +59,6 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
 
             client.data.user = user;
 
-            // Restore room if user was in one
             if (user.currentRoom) {
                 client.join(user.currentRoom);
                 this.activeUsers.set(client.id, {
@@ -117,7 +116,7 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         const userProfile = this.activeUsers.get(client.id);
         if (userProfile) {
             this.server.to(data.room).emit('chatMessage', {
-                id: this.generateMessageId(), // <-- ADDED
+                id: this.generateMessageId(), 
                 user: 'System',
                 text: `${userProfile.name} has left the room.`,
                 timestamp: new Date().toISOString(),
@@ -139,7 +138,7 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         const username = userProfile ? userProfile.name : 'Unknown';
 
         this.server.to(data.room).emit('chatMessage', {
-            id: this.generateMessageId(), // <-- ADDED
+            id: this.generateMessageId(), 
             user: username,
             text: data.message,
             timestamp: new Date().toISOString(),
@@ -219,7 +218,7 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         const username = userProfile ? userProfile.name : 'Unknown';
 
         this.server.to(data.room).emit('chatMessage', {
-            id: this.generateMessageId(), // <-- ADDED
+            id: this.generateMessageId(), 
             user: username,
             text: data.text,
             file: data.file,

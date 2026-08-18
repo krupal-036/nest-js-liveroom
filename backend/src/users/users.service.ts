@@ -50,6 +50,11 @@ export class UsersService {
         return { token: this.jwtService.sign(payload), payload };
     }
 
+    async logout(token: string) {
+        const decoded: JwtUserPayLoad = await this.jwtService.verifyAsync(token);
+        this.usersRepo.updateStatus(decoded.id, { currentRoom: null });
+    }
+
     async create(createUserDto: CreateUserDto) {
         const isSignupEnabled = await this.systemSettingsService.isSignupEnabled();
 
@@ -125,10 +130,11 @@ export class UsersService {
     }
 
     async blacklistUser(id: string, isBlacklisted: boolean) {
+        this.usersRepo.updateStatus(id, { currentRoom: null });
         return this.usersRepo.updateStatus(id, { isBlacklisted });
     }
 
     async updateUserRoom(id: string, room: string | null) {
-        return this.usersRepo.updateStatus(id, { currentRoom: room || undefined });
+        return this.usersRepo.updateStatus(id, { currentRoom: room || null });
     }
 }

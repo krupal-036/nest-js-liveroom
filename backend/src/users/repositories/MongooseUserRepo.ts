@@ -70,7 +70,7 @@ export class MongooseUserRepo implements UserRepository {
 
     async updateStatus(
         id: string,
-        status: { isDisabled?: boolean; isBlacklisted?: boolean; currentRoom?: string },
+        status: { isDisabled?: boolean; isBlacklisted?: boolean; currentRoom?: string | null },
     ): Promise<any> {
         const updated = await this.userModel
             .findByIdAndUpdate(id, status, { returnDocument: 'after' })

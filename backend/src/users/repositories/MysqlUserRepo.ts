@@ -83,6 +83,9 @@ export class MysqlUserRepo implements UserRepository {
         if (status.isDisabled !== undefined) {
             user.isDisabled = status.isDisabled;
         }
+        if (status.currentRoom === null) {
+            user.currentRoom = status.currentRoom;
+        }
         if (status.currentRoom !== undefined) {
             user.currentRoom = status.currentRoom;
         }
