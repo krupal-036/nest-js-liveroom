@@ -7,6 +7,7 @@ import { AppConfig } from './common/config/AppConfig';
 import cookieParser from 'cookie-parser';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { UnauthorizedException } from '@nestjs/common';
+import { SpaExceptionFilter } from './common/filters/spa-exception.filter';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -28,6 +29,8 @@ async function bootstrap() {
         },
         credentials: true,
     });
+
+    app.useGlobalFilters(new SpaExceptionFilter());
 
     if (AppConfig.NODE_ENV !== 'production') {
         app.use(new LoggerMiddleware().use);
