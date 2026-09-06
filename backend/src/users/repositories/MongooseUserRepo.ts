@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { DeleteResult, Model, QueryFilter } from 'mongoose';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from '../entities/user.mongoose.entity';
-import { UserRepository } from './UserRepository';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { DeleteResult, Model, QueryFilter } from "mongoose";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { User } from "../entities/user.mongoose.entity";
+import { UserRepository } from "./UserRepository";
+import { UpdateUserDto } from "../dto/update-user.dto";
 
 @Injectable()
 export class MongooseUserRepo implements UserRepository {
@@ -13,7 +13,7 @@ export class MongooseUserRepo implements UserRepository {
     private toTransformId(value: any | any[]): any | any[] {
         const transform = (doc: any) => {
             if (!doc) return null;
-            const obj = typeof doc.toObject === 'function' ? doc.toObject() : doc;
+            const obj = typeof doc.toObject === "function" ? doc.toObject() : doc;
             const { _id, __v, createdAt, updatedAt, password, ...rest } = obj;
             return {
                 id: _id?.toString() || obj.id,
@@ -31,7 +31,7 @@ export class MongooseUserRepo implements UserRepository {
     }
 
     async findAll(): Promise<any[]> {
-        const users = await this.userModel.find().select('-password').lean().exec();
+        const users = await this.userModel.find().select("-password").lean().exec();
         return this.toTransformId(users);
     }
 
@@ -43,7 +43,7 @@ export class MongooseUserRepo implements UserRepository {
         const query = this.userModel.findOne(filter).lean();
 
         if (!includePassword) {
-            query.select('-password');
+            query.select("-password");
         }
 
         const user = await query.exec();
@@ -73,8 +73,8 @@ export class MongooseUserRepo implements UserRepository {
         status: { isDisabled?: boolean; isBlacklisted?: boolean; currentRoom?: string | null },
     ): Promise<any> {
         const updated = await this.userModel
-            .findByIdAndUpdate(id, status, { returnDocument: 'after' })
-            .select('-password')
+            .findByIdAndUpdate(id, status, { returnDocument: "after" })
+            .select("-password")
             .lean()
             .exec();
         return this.toTransformId(updated);

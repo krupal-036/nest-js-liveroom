@@ -1,32 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-
-import {
-    SystemSettingsRepository,
-    UpdateSystemSettingsData,
-} from './SystemSettingsRepository';
-import { SystemSettingsEntity } from '../entities/system-settings.entity';
+import { SystemSettingsRepository, UpdateSystemSettingsData } from "./SystemSettingsRepository";
+import { SystemSettingsEntity } from "../entities/system-settings.entity";
 
 @Injectable()
-export class MysqlSystemSettingsRepository
-    implements SystemSettingsRepository {
+export class MysqlSystemSettingsRepository implements SystemSettingsRepository {
     constructor(
         @InjectRepository(SystemSettingsEntity)
         private readonly systemSettingsRepo: Repository<SystemSettingsEntity>,
-    ) { }
+    ) {}
 
     async getSystemSettings(): Promise<SystemSettingsEntity> {
         let settings = await this.systemSettingsRepo.findOne({
             where: {
-                configName: 'global_config',
+                configName: "global_config",
             },
         });
 
         if (!settings) {
             settings = this.systemSettingsRepo.create({
-                configName: 'global_config',
+                configName: "global_config",
                 isLoginEnabled: true,
                 isSignupEnabled: true,
             });
@@ -37,9 +32,7 @@ export class MysqlSystemSettingsRepository
         return settings;
     }
 
-    async updateSystemSettings(
-        data: UpdateSystemSettingsData,
-    ): Promise<SystemSettingsEntity> {
+    async updateSystemSettings(data: UpdateSystemSettingsData): Promise<SystemSettingsEntity> {
         let settings = await this.getSystemSettings();
 
         if (data.isLoginEnabled !== undefined) {

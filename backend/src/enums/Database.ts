@@ -1,4 +1,4 @@
 export enum DATABASE_TYPE {
-    MONGO = 'mongodb',
-    MYSQL = 'mysql',
+    MONGO = "mongodb",
+    MYSQL = "mysql",
 }

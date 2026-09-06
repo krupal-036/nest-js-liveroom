@@ -1,12 +1,12 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { Public } from './common/decorators/public.decorator';
-import { AppConfig } from './common/config/AppConfig';
-import os from 'node:os';
+import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
+import { Public } from "./common/decorators/public.decorator";
+import { AppConfig } from "./common/config/AppConfig";
+import os from "node:os";
 
 @Controller()
 export class AppController {
     @Public()
-    @Get('health')
+    @Get("health")
     @HttpCode(HttpStatus.OK)
     getHello() {
         return {
@@ -23,12 +23,12 @@ export class AppController {
                 architecture: os.arch(),
                 freeMemory: `${(os.freemem() / 1024 / 1024).toFixed(2)} MB`,
                 totalMemory: `${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`,
-            }
+            },
         };
     }
 
     @Public()
-    @Get('database')
+    @Get("database")
     getDatabaseType(): any {
         return { current_database: AppConfig.DB_TYPE };
     }

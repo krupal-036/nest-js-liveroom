@@ -1,10 +1,10 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn } from 'typeorm';
-import { hashPassword } from 'src/utils/passwordUtils';
-import { Types } from 'mongoose';
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn } from "typeorm";
+import { hashPassword } from "src/utils/passwordUtils";
+import { Types } from "mongoose";
 
-@Entity('users')
+@Entity("users")
 export class UserEntity {
-    @PrimaryColumn({ type: 'varchar', length: 24 })
+    @PrimaryColumn({ type: "varchar", length: 24 })
     id: string;
 
     @Column({ unique: true })
@@ -16,7 +16,7 @@ export class UserEntity {
     @Column()
     password?: string;
 
-    @Column({ default: 'user' })
+    @Column({ default: "user" })
     role: string;
 
     @Column({ default: false })
@@ -25,7 +25,7 @@ export class UserEntity {
     @Column({ default: false })
     isBlacklisted: boolean;
 
-    @Column({ type: 'varchar', nullable: true })
+    @Column({ type: "varchar", nullable: true })
     currentRoom: string | null;
 
     @BeforeInsert()

@@ -1,14 +1,14 @@
-import { BeforeInsert, Column, Entity, PrimaryColumn } from 'typeorm';
-import { Types } from 'mongoose';
+import { BeforeInsert, Column, Entity, PrimaryColumn } from "typeorm";
+import { Types } from "mongoose";
 
-@Entity('system_settings')
+@Entity("system_settings")
 export class SystemSettingsEntity {
-    @PrimaryColumn({ type: 'varchar', length: 24 })
+    @PrimaryColumn({ type: "varchar", length: 24 })
     id: string;
 
     @Column({
         unique: true,
-        default: 'global_config',
+        default: "global_config",
     })
     configName: string;
 
@@ -19,8 +19,8 @@ export class SystemSettingsEntity {
     isSignupEnabled: boolean;
 
     @Column({
-        type: 'datetime',
-        default: () => 'CURRENT_TIMESTAMP',
+        type: "datetime",
+        default: () => "CURRENT_TIMESTAMP",
     })
     createdAt: Date;
 

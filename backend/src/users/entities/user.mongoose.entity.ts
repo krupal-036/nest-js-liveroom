@@ -1,6 +1,6 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import { hashPassword } from 'src/utils/passwordUtils';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
+import { hashPassword } from "src/utils/passwordUtils";
 
 @Schema({ timestamps: true })
 export class User extends Document {
@@ -13,7 +13,7 @@ export class User extends Document {
     @Prop({ type: String })
     password: string;
 
-    @Prop({ default: 'user' })
+    @Prop({ default: "user" })
     role: string;
 
     @Prop({ type: Boolean, default: false })
@@ -28,8 +28,8 @@ export class User extends Document {
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
-UserSchema.pre('save', async function () {
-    if (this.isModified('password')) {
+UserSchema.pre("save", async function () {
+    if (this.isModified("password")) {
         this.password = await hashPassword(this.password);
     }
 });

@@ -1,5 +1,5 @@
-import { Transform } from 'class-transformer';
-import { IsEmail, IsNotEmpty, IsString, MinLength, MaxLength, IsIn } from 'class-validator';
+import { Transform } from "class-transformer";
+import { IsEmail, IsNotEmpty, IsString, MinLength, MaxLength, IsIn } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
@@ -14,11 +14,11 @@ export class CreateUserDto {
 
     @IsString()
     @IsNotEmpty()
-    @MinLength(8, { message: 'Password must be at least 8 characters long' })
-    @MaxLength(20, { message: 'Password cannot exceed 20 characters' })
+    @MinLength(8, { message: "Password must be at least 8 characters long" })
+    @MaxLength(20, { message: "Password cannot exceed 20 characters" })
     password: string;
 
-    @IsIn(['admin', 'user'])
+    @IsIn(["admin", "user"])
     @IsNotEmpty()
     role: string;
 }

@@ -1,18 +1,16 @@
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap } from "@nestjs/common";
 
-import { AppConfig } from 'src/common/config/AppConfig';
-import { USERS } from 'src/utils/usersData';
+import { AppConfig } from "src/common/config/AppConfig";
+import { USERS } from "src/utils/usersData";
 
-import { SeederRepository } from './repositories/SeederRepo';
+import { SeederRepository } from "./repositories/SeederRepo";
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {
-    constructor(
-        private readonly seederRepo: SeederRepository,
-    ) {}
+    constructor(private readonly seederRepo: SeederRepository) {}
 
     async onApplicationBootstrap() {
-        const dbName = AppConfig.IS_MONGO ? 'MongoDB' : 'MySQL';
+        const dbName = AppConfig.IS_MONGO ? "MongoDB" : "MySQL";
 
         await this.seedUsers(dbName);
         await this.seedSystemSettings(dbName);

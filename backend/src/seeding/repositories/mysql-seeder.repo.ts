@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 
-import { UserEntity } from 'src/users/entities/user.mysql.entity';
+import { UserEntity } from "src/users/entities/user.mysql.entity";
 
-import { SeederRepository } from './SeederRepo';
-import { CreateSeedUserDto } from '../dto/create-seed-user.dto';
-import { SystemSettingsEntity } from 'src/system-settings/entities/system-settings.entity';
+import { SeederRepository } from "./SeederRepo";
+import { CreateSeedUserDto } from "../dto/create-seed-user.dto";
+import { SystemSettingsEntity } from "src/system-settings/entities/system-settings.entity";
 
 @Injectable()
 export class MysqlSeederRepository implements SeederRepository {
@@ -33,7 +33,7 @@ export class MysqlSeederRepository implements SeederRepository {
 
     async seedSystemSettings(): Promise<void> {
         const settings = this.systemSettingsRepo.create({
-            configName: 'global_config',
+            configName: "global_config",
             isLoginEnabled: true,
             isSignupEnabled: true,
         });

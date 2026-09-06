@@ -1,12 +1,12 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
 
-import { User } from 'src/users/entities/user.mongoose.entity';
+import { User } from "src/users/entities/user.mongoose.entity";
 
-import { SeederRepository } from './SeederRepo';
-import { CreateSeedUserDto } from '../dto/create-seed-user.dto';
-import { SystemSettings } from 'src/system-settings/entities/system-settings.schema';
+import { SeederRepository } from "./SeederRepo";
+import { CreateSeedUserDto } from "../dto/create-seed-user.dto";
+import { SystemSettings } from "src/system-settings/entities/system-settings.schema";
 
 @Injectable()
 export class MongooseSeederRepository implements SeederRepository {
@@ -32,7 +32,7 @@ export class MongooseSeederRepository implements SeederRepository {
 
     async seedSystemSettings(): Promise<void> {
         await this.systemSettingsModel.create({
-            configName: 'global_config',
+            configName: "global_config",
             isLoginEnabled: true,
             isSignupEnabled: true,
         });

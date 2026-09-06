@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { UserRepository } from './UserRepository';
-import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.mysql.entity';
-import { Repository } from 'typeorm';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { UserRepository } from "./UserRepository";
+import { InjectRepository } from "@nestjs/typeorm";
+import { UserEntity } from "../entities/user.mysql.entity";
+import { Repository } from "typeorm";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { UpdateUserDto } from "../dto/update-user.dto";
 
 @Injectable()
 export class MysqlUserRepo implements UserRepository {
@@ -53,7 +53,7 @@ export class MysqlUserRepo implements UserRepository {
     async update(id: string, updateUserDto: UpdateUserDto): Promise<any> {
         const user = await this.userRepo.findOneBy({ id });
         if (!user) {
-            throw new NotFoundException({ message: 'User Not found' });
+            throw new NotFoundException({ message: "User Not found" });
         }
         if (updateUserDto.username) user.username = updateUserDto.username;
         if (updateUserDto.email) user.email = updateUserDto.email;
@@ -74,7 +74,7 @@ export class MysqlUserRepo implements UserRepository {
     ): Promise<any> {
         const user = await this.userRepo.findOneBy({ id });
         if (!user) {
-            throw new NotFoundException({ message: 'User Not found' });
+            throw new NotFoundException({ message: "User Not found" });
         }
 
         if (status.isBlacklisted !== undefined) {

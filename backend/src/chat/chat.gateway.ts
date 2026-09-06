@@ -1,4 +1,4 @@
-import { JwtService } from '@nestjs/jwt';
+import { JwtService } from "@nestjs/jwt";
 import {
     SubscribeMessage,
     WebSocketGateway,
@@ -7,13 +7,13 @@ import {
     ConnectedSocket,
     OnGatewayDisconnect,
     OnGatewayConnection,
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { UserRepository } from 'src/users/repositories/UserRepository';
+} from "@nestjs/websockets";
+import { Server, Socket } from "socket.io";
+import { UserRepository } from "src/users/repositories/UserRepository";
 
 @WebSocketGateway({
     cors: {
-        origin: '*',
+        origin: "*",
         credentials: true,
     },
     maxHttpBufferSize: 1e8,
@@ -25,7 +25,7 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
     constructor(
         private readonly jwtService: JwtService,
         private readonly usersRepo: UserRepository,
-    ) { }
+    ) {}
 
     private activeRooms: Set<string> = new Set();
     private activeUsers: Map<string, { name: string; room: string; userId: string }> = new Map();
@@ -66,8 +66,8 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
                     room: user.currentRoom,
                     userId: user.id,
                 });
-                this.server.to(user.currentRoom).emit('chatMessage', {
-                    user: 'System',
+                this.server.to(user.currentRoom).emit("chatMessage", {
+                    user: "System",
                     text: `${user.username} reconnected to the room.`,
                     timestamp: new Date().toISOString(),
                 });
@@ -78,20 +78,20 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         }
     }
 
-    @SubscribeMessage('createRoom')
+    @SubscribeMessage("createRoom")
     handleCreateRoom(@MessageBody() room: string) {
         if (room && !this.activeRooms.has(room)) {
             this.activeRooms.add(room);
-            this.server.emit('roomList', Array.from(this.activeRooms));
+            this.server.emit("roomList", Array.from(this.activeRooms));
         }
     }
 
-    @SubscribeMessage('getRooms')
+    @SubscribeMessage("getRooms")
     handleGetRooms(@ConnectedSocket() client: Socket) {
-        client.emit('roomList', Array.from(this.activeRooms));
+        client.emit("roomList", Array.from(this.activeRooms));
     }
 
-    @SubscribeMessage('joinRoom')
+    @SubscribeMessage("joinRoom")
     handleJoinRoom(@MessageBody() data: { room: string }, @ConnectedSocket() client: Socket) {
         const user = client.data.user;
         if (!user) return;
@@ -101,9 +101,9 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
 
         this.usersRepo.updateStatus(user.id, { currentRoom: data.room });
 
-        client.emit('joinedRoom', data.room);
-        this.server.to(data.room).emit('chatMessage', {
-            user: 'System',
+        client.emit("joinedRoom", data.room);
+        this.server.to(data.room).emit("chatMessage", {
+            user: "System",
             text: `${user.username} joined the chat room.`,
             timestamp: new Date().toISOString(),
         });
@@ -111,13 +111,13 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         this.broadcastActiveUsers(data.room);
     }
 
-    @SubscribeMessage('leaveRoom')
+    @SubscribeMessage("leaveRoom")
     handleLeaveRoom(@MessageBody() data: { room: string }, @ConnectedSocket() client: Socket) {
         const userProfile = this.activeUsers.get(client.id);
         if (userProfile) {
-            this.server.to(data.room).emit('chatMessage', {
-                id: this.generateMessageId(), 
-                user: 'System',
+            this.server.to(data.room).emit("chatMessage", {
+                id: this.generateMessageId(),
+                user: "System",
                 text: `${userProfile.name} has left the room.`,
                 timestamp: new Date().toISOString(),
             });
@@ -129,30 +129,30 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         }
     }
 
-    @SubscribeMessage('sendMessage')
+    @SubscribeMessage("sendMessage")
     handleMessage(
         @MessageBody() data: { room: string; message: string },
         @ConnectedSocket() client: Socket,
     ) {
         const userProfile = this.activeUsers.get(client.id);
-        const username = userProfile ? userProfile.name : 'Unknown';
+        const username = userProfile ? userProfile.name : "Unknown";
 
-        this.server.to(data.room).emit('chatMessage', {
-            id: this.generateMessageId(), 
+        this.server.to(data.room).emit("chatMessage", {
+            id: this.generateMessageId(),
             user: username,
             text: data.message,
             timestamp: new Date().toISOString(),
         });
     }
 
-    @SubscribeMessage('typing')
+    @SubscribeMessage("typing")
     handleTyping(
         @MessageBody() data: { room: string; isTyping: boolean },
         @ConnectedSocket() client: Socket,
     ) {
         const userProfile = this.activeUsers.get(client.id);
         if (userProfile) {
-            client.to(data.room).emit('userTyping', {
+            client.to(data.room).emit("userTyping", {
                 user: userProfile.name,
                 isTyping: data.isTyping,
             });
@@ -165,12 +165,12 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         if (userProfile) {
             const { name, room } = userProfile;
 
-            this.server.to(room).emit('chatMessage', {
-                user: 'System',
+            this.server.to(room).emit("chatMessage", {
+                user: "System",
                 text: `${name} has left the room.`,
             });
 
-            client.to(room).emit('userTyping', { user: name, isTyping: false });
+            client.to(room).emit("userTyping", { user: name, isTyping: false });
 
             this.activeUsers.delete(client.id);
 
@@ -185,13 +185,13 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
                 roomUsers.push(profile.name);
             }
         });
-        this.server.to(room).emit('activeUsersUpdate', roomUsers);
+        this.server.to(room).emit("activeUsersUpdate", roomUsers);
     }
 
-    @SubscribeMessage('deleteRoom')
+    @SubscribeMessage("deleteRoom")
     handleDeleteRoom(@MessageBody() room: string) {
         if (room && this.activeRooms.has(room)) {
-            this.server.to(room).emit('roomDeleted', room);
+            this.server.to(room).emit("roomDeleted", room);
 
             const roomSockets = this.server.sockets.adapter.rooms.get(room);
             if (roomSockets) {
@@ -205,20 +205,20 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
             }
 
             this.activeRooms.delete(room);
-            this.server.emit('roomList', Array.from(this.activeRooms));
+            this.server.emit("roomList", Array.from(this.activeRooms));
         }
     }
 
-    @SubscribeMessage('sendFile')
+    @SubscribeMessage("sendFile")
     handleSendFile(
         @MessageBody() data: { room: string; text: string; file: any },
         @ConnectedSocket() client: Socket,
     ) {
         const userProfile = this.activeUsers.get(client.id);
-        const username = userProfile ? userProfile.name : 'Unknown';
+        const username = userProfile ? userProfile.name : "Unknown";
 
-        this.server.to(data.room).emit('chatMessage', {
-            id: this.generateMessageId(), 
+        this.server.to(data.room).emit("chatMessage", {
+            id: this.generateMessageId(),
             user: username,
             text: data.text,
             file: data.file,
@@ -226,48 +226,48 @@ export class ChatGateway implements OnGatewayDisconnect, OnGatewayConnection {
         });
     }
 
-    @SubscribeMessage('clearChat')
+    @SubscribeMessage("clearChat")
     handleClearChat(@MessageBody() data: { room: string }, @ConnectedSocket() client: Socket) {
         const userProfile = this.activeUsers.get(client.id);
-        const username = userProfile ? userProfile.name : 'Anonymous';
+        const username = userProfile ? userProfile.name : "Anonymous";
 
         if (data.room) {
-            this.server.to(data.room).emit('chatCleared', { clearedBy: username });
+            this.server.to(data.room).emit("chatCleared", { clearedBy: username });
         }
     }
 
-    @SubscribeMessage('adminJoinRoom')
+    @SubscribeMessage("adminJoinRoom")
     handleAdminJoinRoom(@MessageBody() data: { room: string }, @ConnectedSocket() client: Socket) {
         const user = client.data.user;
-        if (!user || user.role !== 'admin') return;
+        if (!user || user.role !== "admin") return;
 
         client.join(data.room);
-        this.server.to(data.room).emit('chatMessage', {
-            user: 'System',
+        this.server.to(data.room).emit("chatMessage", {
+            user: "System",
             text: `👑 Admin ${user.username} has entered the room as an observer.`,
             timestamp: new Date().toISOString(),
         });
     }
 
-    @SubscribeMessage('addReaction')
+    @SubscribeMessage("addReaction")
     handleAddReaction(
         @MessageBody() data: { messageId: string; user: string; emoji: string },
         @ConnectedSocket() client: Socket,
     ) {
         const userProfile = this.activeUsers.get(client.id);
         if (userProfile) {
-            this.server.to(userProfile.room).emit('reactionAdded', data);
+            this.server.to(userProfile.room).emit("reactionAdded", data);
         }
     }
 
-    @SubscribeMessage('removeReaction')
+    @SubscribeMessage("removeReaction")
     handleRemoveReaction(
         @MessageBody() data: { messageId: string; user: string },
         @ConnectedSocket() client: Socket,
     ) {
         const userProfile = this.activeUsers.get(client.id);
         if (userProfile) {
-            this.server.to(userProfile.room).emit('reactionRemoved', data);
+            this.server.to(userProfile.room).emit("reactionRemoved", data);
         }
     }
 }

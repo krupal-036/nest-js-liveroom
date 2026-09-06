@@ -1,12 +1,18 @@
-import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { JwtService } from '@nestjs/jwt';
-import { comparePassword } from 'src/utils/passwordUtils';
-import { UserRepository } from './repositories/UserRepository';
-import { UserRole } from 'src/enums/UserRole';
-import { JwtUserPayLoad } from 'src/types/types';
-import { SystemSettingsService } from 'src/system-settings/system-settings.service';
+import {
+    BadRequestException,
+    ConflictException,
+    ForbiddenException,
+    Injectable,
+    NotFoundException,
+} from "@nestjs/common";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { JwtService } from "@nestjs/jwt";
+import { comparePassword } from "src/utils/passwordUtils";
+import { UserRepository } from "./repositories/UserRepository";
+import { UserRole } from "src/enums/UserRole";
+import { JwtUserPayLoad } from "src/types/types";
+import { SystemSettingsService } from "src/system-settings/system-settings.service";
 
 @Injectable()
 export class UsersService {
@@ -14,27 +20,24 @@ export class UsersService {
         private readonly usersRepo: UserRepository,
         private readonly jwtService: JwtService,
         private readonly systemSettingsService: SystemSettingsService,
-    ) { }
+    ) {}
 
     async login(body: UpdateUserDto) {
         const user = await this.usersRepo.findByFilter({ email: body.email }, true);
-        if (!user) throw new NotFoundException({ message: 'User not found' });
-        if (user.isBlacklisted) throw new ForbiddenException('This email is blacklisted.');
+        if (!user) throw new NotFoundException({ message: "User not found" });
+        if (user.isBlacklisted) throw new ForbiddenException("This email is blacklisted.");
         if (user.isDisabled)
-            throw new ForbiddenException('This account has been disabled by an admin.');
+            throw new ForbiddenException("This account has been disabled by an admin.");
 
         if (!(await comparePassword(body.password!, user.password))) {
-            throw new BadRequestException('Invalid credentials');
+            throw new BadRequestException("Invalid credentials");
         }
 
         if (user.role !== UserRole.ADMIN) {
-            const isLoginEnabled =
-                await this.systemSettingsService.isLoginEnabled();
+            const isLoginEnabled = await this.systemSettingsService.isLoginEnabled();
 
             if (!isLoginEnabled) {
-                throw new ForbiddenException(
-                    'Login is currently disabled by the administrator.',
-                );
+                throw new ForbiddenException("Login is currently disabled by the administrator.");
             }
         }
 
@@ -59,19 +62,19 @@ export class UsersService {
         const isSignupEnabled = await this.systemSettingsService.isSignupEnabled();
 
         if (!isSignupEnabled) {
-            throw new ForbiddenException('Signup is currently disabled by the administrator.');
+            throw new ForbiddenException("Signup is currently disabled by the administrator.");
         }
 
         if (createUserDto.role === UserRole.ADMIN || createUserDto.username === UserRole.ADMIN) {
             throw new BadRequestException(
-                'Admin account creation is disabled. All admin accounts have already been seeded.',
+                "Admin account creation is disabled. All admin accounts have already been seeded.",
             );
         }
         const existingUser = await this.usersRepo.findByEmail(createUserDto.email);
         if (existingUser) {
             if (existingUser.isBlacklisted)
-                throw new ForbiddenException('This email is blacklisted.');
-            throw new ConflictException({ message: 'User with this email already exists' });
+                throw new ForbiddenException("This email is blacklisted.");
+            throw new ConflictException({ message: "User with this email already exists" });
         }
         const user = await this.usersRepo.create(createUserDto);
         delete user.password;
@@ -85,7 +88,7 @@ export class UsersService {
     async verifyMe(payload: JwtUserPayLoad) {
         const user = await this.findOne(payload.id);
         if (user.email.toLowerCase() !== payload.email.toLowerCase()) {
-            throw new ForbiddenException({ message: 'You are not allowed to access this routes.' });
+            throw new ForbiddenException({ message: "You are not allowed to access this routes." });
         }
         return { message: true };
     }
