@@ -11,17 +11,18 @@ import { SpaExceptionFilter } from './common/filters/spa-exception.filter';
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+    const isDevelopment = AppConfig.NODE_ENV === 'development';
+    const frontendUrls = AppConfig.ALLOWED_ORIGINS
+    .split(',')
+    .map((url) => url.trim())
+    .filter(Boolean);
+    
     app.useStaticAssets(join(__dirname, '..', 'public'), {});
     app.use(cookieParser());
-    const frontendUrls = AppConfig.ALLOWED_ORIGINS
-        .split(',')
-        .map((url) => url.trim())
-        .filter(Boolean);
-
+    app.getHttpAdapter().getInstance().set('trust proxy', 1); 
     app.enableCors({
         origin: (origin, callback) => {
-            if (!origin || frontendUrls.includes(origin)) {
+            if (isDevelopment || !origin || frontendUrls.includes(origin)) {
                 callback(null, true);
             } else {
                 callback(new UnauthorizedException('Not allowed by CORS'));
