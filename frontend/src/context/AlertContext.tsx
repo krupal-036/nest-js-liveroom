@@ -1,5 +1,21 @@
-import React, { createContext, useContext, useState, useCallback, useMemo, useEffect, type CSSProperties, type ReactNode } from 'react';
-import { FiX, FiTrash2, FiAlertCircle, FiCheckCircle, FiAlertTriangle, FiInfo } from 'react-icons/fi';
+import React, {
+    createContext,
+    useContext,
+    useState,
+    useCallback,
+    useMemo,
+    useEffect,
+    type CSSProperties,
+    type ReactNode,
+} from "react";
+import {
+    FiX,
+    FiTrash2,
+    FiAlertCircle,
+    FiCheckCircle,
+    FiAlertTriangle,
+    FiInfo,
+} from "react-icons/fi";
 
 export type AlertType = 1 | 2 | 3;
 
@@ -17,9 +33,9 @@ export type AlertContextType = {
 };
 
 const DefaultAlertContext: AlertContextType = {
-    showAlert: () => { },
-    hideAlert: () => { },
-    clearAll: () => { }
+    showAlert: () => {},
+    hideAlert: () => {},
+    clearAll: () => {},
 };
 
 export const AlertContext = createContext<AlertContextType>(DefaultAlertContext);
@@ -35,16 +51,22 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
 
     const clearAll = useCallback(() => setAlerts([]), []);
 
-    const showAlert = useCallback((message: string, title = "Unknown Error...", type: AlertType = 1) => {
-        const id = Date.now();
-        setAlerts((prev) => [{ id, title, message, type }, ...prev]);
-    }, []);
+    const showAlert = useCallback(
+        (message: string, title = "Unknown Error...", type: AlertType = 1) => {
+            const id = Date.now();
+            setAlerts((prev) => [{ id, title, message, type }, ...prev]);
+        },
+        [],
+    );
 
-    const contextValue = useMemo(() => ({
-        showAlert,
-        hideAlert,
-        clearAll
-    }), [showAlert, hideAlert, clearAll]);
+    const contextValue = useMemo(
+        () => ({
+            showAlert,
+            hideAlert,
+            clearAll,
+        }),
+        [showAlert, hideAlert, clearAll],
+    );
 
     return (
         <AlertContext.Provider value={contextValue}>
@@ -75,12 +97,29 @@ interface AlertProps {
     onClear: () => void;
 }
 
-const TONES: Record<AlertType | 'default', { icon: React.ElementType; tile: string; bar: string }> = {
-    1: { icon: FiAlertCircle, tile: 'bg-rose-500/10 text-rose-600 dark:text-rose-400', bar: 'bg-rose-500' },
-    2: { icon: FiCheckCircle, tile: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400', bar: 'bg-emerald-500' },
-    3: { icon: FiAlertTriangle, tile: 'bg-amber-500/10 text-amber-600 dark:text-amber-400', bar: 'bg-amber-500' },
-    default: { icon: FiInfo, tile: 'bg-stone-500/10 text-stone-500 dark:text-stone-400', bar: 'bg-stone-400' },
-};
+const TONES: Record<AlertType | "default", { icon: React.ElementType; tile: string; bar: string }> =
+    {
+        1: {
+            icon: FiAlertCircle,
+            tile: "bg-rose-500/10 text-rose-600 dark:text-rose-400",
+            bar: "bg-rose-500",
+        },
+        2: {
+            icon: FiCheckCircle,
+            tile: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+            bar: "bg-emerald-500",
+        },
+        3: {
+            icon: FiAlertTriangle,
+            tile: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+            bar: "bg-amber-500",
+        },
+        default: {
+            icon: FiInfo,
+            tile: "bg-stone-500/10 text-stone-500 dark:text-stone-400",
+            bar: "bg-stone-400",
+        },
+    };
 
 const Alert = ({ alert, onClose, index, total, onClear }: AlertProps) => {
     useEffect(() => {
@@ -90,14 +129,14 @@ const Alert = ({ alert, onClose, index, total, onClear }: AlertProps) => {
 
     /* Stacking behaviour preserved: newest at the bottom, older cards lift & shrink behind it */
     const stackStyle: CSSProperties = {
-        position: 'absolute',
+        position: "absolute",
         bottom: 0,
         left: 0,
         right: 0,
         zIndex: total - index,
         transform: `translateY(-${index * 12}px) scale(${1 - index * 0.05})`,
         opacity: index > 2 ? 0 : 1,
-        transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: "all 0.45s cubic-bezier(0.16, 1, 0.3, 1)",
     };
 
     const tone = TONES[alert.type] || TONES.default;
@@ -110,12 +149,18 @@ const Alert = ({ alert, onClose, index, total, onClear }: AlertProps) => {
                 className="pointer-events-auto relative w-full max-w-sm animate-rise-in overflow-hidden rounded-2xl border border-stone-200/90 bg-white/95 shadow-pop backdrop-blur-xl sm:max-w-md dark:border-stone-700/70 dark:bg-ink-soft/95"
             >
                 <div className="flex items-start gap-3 p-4 pr-3">
-                    <span className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${tone.tile}`}>
+                    <span
+                        className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${tone.tile}`}
+                    >
                         <Icon className="h-4 w-4" strokeWidth={2.25} />
                     </span>
                     <div className="min-w-0 flex-1 pt-0.5">
-                        <p className="text-sm leading-tight font-semibold tracking-tight text-stone-900 dark:text-stone-100">{alert.title}</p>
-                        <p className="mt-1 text-[13px] leading-snug font-medium text-stone-500 dark:text-stone-400">{alert.message}</p>
+                        <p className="text-sm leading-tight font-semibold tracking-tight text-stone-900 dark:text-stone-100">
+                            {alert.title}
+                        </p>
+                        <p className="mt-1 text-[13px] leading-snug font-medium text-stone-500 dark:text-stone-400">
+                            {alert.message}
+                        </p>
                     </div>
                     <div className="flex shrink-0 items-center gap-0.5">
                         <button

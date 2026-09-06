@@ -1,5 +1,5 @@
-import React from 'react';
-import { Logo } from './Logo';
+import React from "react";
+import { Logo } from "./Logo";
 
 export const LoadingScreen: React.FC = () => (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-cream-soft dark:bg-ink-deep">

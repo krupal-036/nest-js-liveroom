@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const INLINE_REGEX = /(`[^`\n]+`)|(\*\*[^*\n]+\*\*)|(_[^_\n]+_)/g;
 
@@ -19,14 +19,21 @@ export const renderMarkdown = (text: string): React.ReactNode => {
         const token = match[0];
         if (match[1]) {
             parts.push(
-                <code key={key++} className="rounded-md bg-black/10 px-1.5 py-0.5 font-mono text-[0.85em] dark:bg-white/10">
+                <code
+                    key={key++}
+                    className="rounded-md bg-black/10 px-1.5 py-0.5 font-mono text-[0.85em] dark:bg-white/10"
+                >
                     {token.slice(1, -1)}
-                </code>
+                </code>,
             );
         } else if (match[2]) {
-            parts.push(<strong key={key++} className="font-bold">{token.slice(2, -2)}</strong>);
+            parts.push(
+                <strong key={key++} className="font-bold">
+                    {token.slice(2, -2)}
+                </strong>,
+            );
         } else {
-            const prevChar = text[match.index - 1] || '';
+            const prevChar = text[match.index - 1] || "";
             if (/[A-Za-z0-9]/.test(prevChar)) {
                 parts.push(token);
             } else {

@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { API_URL } from '../utils/getApiURL';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { API_URL } from "../utils/getApiURL";
 
 interface User {
     id: string;
@@ -29,14 +29,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const checkAuth = async () => {
         try {
             const res = await fetch(`${API_URL}users/me`, {
-                credentials: 'include',
+                credentials: "include",
             });
             if (res.ok) {
-                const storedUser = sessionStorage.getItem('user');
+                const storedUser = sessionStorage.getItem("user");
                 if (storedUser) setUser(JSON.parse(storedUser));
             }
         } catch (e) {
-            console.error('Auth check failed');
+            console.error("Auth check failed");
         } finally {
             setIsLoading(false);
         }
@@ -44,37 +44,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const login = async (email: string, password: string) => {
         const res = await fetch(`${API_URL}users/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
-            credentials: 'include',
+            credentials: "include",
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Login failed');
-        
+        if (!res.ok) throw new Error(data.message || "Login failed");
+
         setUser(data.payload);
-        sessionStorage.setItem('user', JSON.stringify(data.payload));
+        sessionStorage.setItem("user", JSON.stringify(data.payload));
     };
 
     const signup = async (username: string, email: string, password: string) => {
         const res = await fetch(`${API_URL}users`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, email, password, role: 'user' }),
-            credentials: 'include',
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password, role: "user" }),
+            credentials: "include",
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Signup failed');
+        if (!res.ok) throw new Error(data.message || "Signup failed");
     };
 
     const logout = async () => {
         await fetch(`${API_URL}users/logout`, {
-            method: 'POST',
-            credentials: 'include',
+            method: "POST",
+            credentials: "include",
         });
         setUser(null);
-        sessionStorage.removeItem('user');
-        localStorage.removeItem('joinedRoom');
+        sessionStorage.removeItem("user");
+        localStorage.removeItem("joinedRoom");
     };
 
     return (
@@ -86,6 +86,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (!context) throw new Error('useAuth must be used within AuthProvider');
+    if (!context) throw new Error("useAuth must be used within AuthProvider");
     return context;
 };
