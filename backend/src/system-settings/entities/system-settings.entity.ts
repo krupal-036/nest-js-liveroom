@@ -1,3 +1,4 @@
+// backend/src/system-settings/entities/system-settings.entity.ts
 import { BeforeInsert, Column, Entity, PrimaryColumn } from "typeorm";
 import { Types } from "mongoose";
 

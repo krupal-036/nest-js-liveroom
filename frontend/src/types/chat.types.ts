@@ -1,3 +1,4 @@
+// frontend/src/types/chat.types.ts
 export interface UserTypingData {
     user: string;
     isTyping: boolean;

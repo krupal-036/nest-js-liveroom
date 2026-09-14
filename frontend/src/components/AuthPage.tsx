@@ -1,3 +1,4 @@
+// frontend/src/components/AuthPage.tsx
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import {

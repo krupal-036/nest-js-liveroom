@@ -1,3 +1,4 @@
+// backend/src/seeding/dto/create-seed-user.dto.ts
 import { UserRole } from "src/enums/UserRole";
 
 export class CreateSeedUserDto {

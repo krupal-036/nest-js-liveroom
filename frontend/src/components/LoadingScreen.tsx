@@ -1,3 +1,4 @@
+// frontend/src/components/LoadingScreen.tsx
 import React from "react";
 import { Logo } from "./Logo";
 

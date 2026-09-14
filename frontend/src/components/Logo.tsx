@@ -1,3 +1,4 @@
+// frontend/src/components/Logo.tsx
 import React from "react";
 import { FiMessageSquare } from "react-icons/fi";
 

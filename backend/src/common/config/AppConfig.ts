@@ -1,3 +1,4 @@
+// backend/src/common/config/AppConfig.ts
 import { JwtModule } from "@nestjs/jwt";
 import { MongooseModule } from "@nestjs/mongoose";
 import { TypeOrmModule } from "@nestjs/typeorm";

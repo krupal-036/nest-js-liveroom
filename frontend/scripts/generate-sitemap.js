@@ -1,3 +1,4 @@
+// frontend/scripts/generate-sitemap.js
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -7,12 +8,12 @@ const SITE_URL = "https://nest-js-liveroom.vercel.app";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const OUTPUT_DIR = path.resolve(__dirname, "../frontend/public");
+const OUTPUT_DIR = path.resolve(__dirname, "../public");
 
 const routes = [
     { path: "/", priority: 1.0, changefreq: "weekly" },
     { path: "/about", priority: 0.7, changefreq: "monthly" },
-    { path: "/auth", priority: 0.3, changefreq: "monthly" }, 
+    { path: "/auth", priority: 0.3, changefreq: "monthly" },
 ];
 
 function buildSitemap(entries) {
@@ -25,7 +26,7 @@ function buildSitemap(entries) {
     <lastmod>${today}</lastmod>
     <changefreq>${r.changefreq}</changefreq>
     <priority>${r.priority.toFixed(1)}</priority>
-  </url>`
+</url>`,
         )
         .join("\n");
 

@@ -1,3 +1,4 @@
+// frontend/src/components/AboutPage.tsx
 import {
     FiArrowLeft,
     FiArrowRight,

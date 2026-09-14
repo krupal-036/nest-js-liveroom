@@ -1,3 +1,4 @@
+// frontend/src/components/MessageTerminal.tsx
 import React, { useState, useEffect, useRef, type SubmitEvent } from "react";
 import {
     FiMessageSquare,

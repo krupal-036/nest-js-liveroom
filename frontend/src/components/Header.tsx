@@ -1,3 +1,4 @@
+// frontend/src/components/Header.tsx
 import React, { useState } from "react";
 import { FiLogOut, FiMenu, FiShield, FiHash, FiInfo, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { Logo } from "./Logo";

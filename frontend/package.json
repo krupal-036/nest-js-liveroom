@@ -4,12 +4,13 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite --host",
+        "dev": "vite",
         "build": "tsc -b && vite build",
-        "format": "prettier --write .",
-        "format:check": "prettier --check .",
         "lint": "eslint .",
-        "preview": "vite preview"
+        "prebuild": "node scripts/generate-sitemap.js",
+        "preview": "vite preview",
+        "format": "prettier --write .",
+        "format:check": "prettier --check \"**/*.{ts,json,md}\""
     },
     "dependencies": {
         "emoji-picker-react": "^4.19.1",

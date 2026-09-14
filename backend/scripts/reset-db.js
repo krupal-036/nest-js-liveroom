@@ -1,3 +1,4 @@
+// backend/scripts/reset-db.js
 require('dotenv').config();
 const DB = process.env.MONGO_DATABASE;
 const mongoose = require('mongoose');

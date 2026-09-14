@@ -1,3 +1,4 @@
+// frontend/src/components/HomePage.tsx
 import React from "react";
 import {
     FiZap,

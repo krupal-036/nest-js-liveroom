@@ -1,3 +1,4 @@
+// backend/src/common/interceptors/logging.interceptor.ts
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { map, Observable, tap } from "rxjs";
 

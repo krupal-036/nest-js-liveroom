@@ -1,3 +1,4 @@
+// frontend/src/components/AdminPanel.tsx
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useAlert } from "../context/AlertContext";

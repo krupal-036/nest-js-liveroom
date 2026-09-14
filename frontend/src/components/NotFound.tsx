@@ -1,3 +1,4 @@
+// frontend/src/components/NotFound.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FiHome, FiAlertTriangle } from "react-icons/fi";

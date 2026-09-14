@@ -1,3 +1,4 @@
+// backend/src/system-settings/repositories/SystemSettingsRepository.ts
 export interface UpdateSystemSettingsData {
     isLoginEnabled?: boolean;
     isSignupEnabled?: boolean;

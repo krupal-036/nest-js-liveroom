@@ -1,3 +1,4 @@
+// backend/src/chat/chat.gateway.ts
 import { JwtService } from "@nestjs/jwt";
 import {
     SubscribeMessage,

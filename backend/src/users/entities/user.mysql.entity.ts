@@ -1,3 +1,4 @@
+// backend/src/users/entities/user.mysql.entity.ts
 import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn } from "typeorm";
 import { hashPassword } from "src/utils/passwordUtils";
 import { Types } from "mongoose";

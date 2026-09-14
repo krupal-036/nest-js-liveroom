@@ -1,3 +1,4 @@
+// backend/src/common/decorators/public.decorator.ts
 import { SetMetadata } from "@nestjs/common";
 
 export const PUBLIC_KEY = "public";

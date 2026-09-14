@@ -1,3 +1,4 @@
+// frontend/src/utils/markdown.tsx
 import React from "react";
 
 const INLINE_REGEX = /(`[^`\n]+`)|(\*\*[^*\n]+\*\*)|(_[^_\n]+_)/g;

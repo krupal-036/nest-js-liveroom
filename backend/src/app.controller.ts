@@ -1,3 +1,4 @@
+// backend/src/app.controller.ts
 import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
 import { Public } from "./common/decorators/public.decorator";
 import { AppConfig } from "./common/config/AppConfig";

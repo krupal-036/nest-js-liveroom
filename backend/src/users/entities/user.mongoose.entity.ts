@@ -1,3 +1,4 @@
+// backend/src/users/entities/user.mongoose.entity.ts
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
 import { hashPassword } from "src/utils/passwordUtils";

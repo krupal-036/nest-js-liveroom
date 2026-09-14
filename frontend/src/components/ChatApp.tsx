@@ -1,3 +1,4 @@
+// frontend/src/components/ChatApp.tsx
 import React, { useState, useEffect, useRef, type SubmitEvent } from "react";
 import { io, Socket } from "socket.io-client";
 import { Header } from "./Header";

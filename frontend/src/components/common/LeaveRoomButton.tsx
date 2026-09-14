@@ -1,3 +1,4 @@
+// frontend/src/components/common/LeaveRoomButton.tsx
 import { FiLogOut } from "react-icons/fi";
 
 export type LeaveRoomButtonProps = {

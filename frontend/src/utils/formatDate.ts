@@ -1,3 +1,4 @@
+// frontend/src/utils/formatDate.ts
 export const getDateKey = (timestamp?: string): string => {
     const date = timestamp ? new Date(timestamp) : new Date();
     if (isNaN(date.getTime())) return new Date().toDateString();

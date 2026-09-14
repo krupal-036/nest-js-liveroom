@@ -100,3 +100,6 @@ desktop.ini
 **/.cache/
 
 .eslintcache
+frontend/.vite/
+backend/vercel.json
+/scripts

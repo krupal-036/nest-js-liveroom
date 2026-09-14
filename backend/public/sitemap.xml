@@ -5,17 +5,17 @@
     <lastmod>2026-09-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
+</url>
   <url>
     <loc>https://nest-js-liveroom.vercel.app/about</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
+</url>
   <url>
     <loc>https://nest-js-liveroom.vercel.app/auth</loc>
     <lastmod>2026-09-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
-  </url>
+</url>
 </urlset>

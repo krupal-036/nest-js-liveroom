@@ -1,3 +1,4 @@
+// frontend/src/utils/getApiURL.ts
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 const API_URL_ENV = import.meta.env.VITE_API_URL;
 const LOCAL_URL = import.meta.env.VITE_LOCAL_URL;

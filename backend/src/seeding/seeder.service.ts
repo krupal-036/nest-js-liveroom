@@ -1,3 +1,4 @@
+// backend/src/seeding/seeder.service.ts
 import { Injectable, OnApplicationBootstrap } from "@nestjs/common";
 
 import { AppConfig } from "src/common/config/AppConfig";

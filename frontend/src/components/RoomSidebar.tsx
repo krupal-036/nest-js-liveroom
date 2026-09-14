@@ -1,3 +1,4 @@
+// frontend/src/components/RoomSidebar.tsx
 import React from "react";
 import { FiUser, FiHash, FiRefreshCw, FiPlus, FiTrash2, FiX, FiUsers } from "react-icons/fi";
 

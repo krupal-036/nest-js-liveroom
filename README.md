@@ -1,3 +1,4 @@
+<!-- README.md -->
 # 🚀 NestJS Liveroom
 
 **NestJS-Liveroom** is a real-time WebSocket application demonstrating a production-oriented approach to dynamic room management. It combines **NestJS, Socket.IO, and React** to create scalable live rooms where clients can dynamically join, communicate, and synchronize real-time state.

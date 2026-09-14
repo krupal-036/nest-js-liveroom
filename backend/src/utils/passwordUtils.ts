@@ -1,3 +1,4 @@
+// backend/src/utils/passwordUtils.ts
 import bcrypt from "bcrypt";
 
 export const hashPassword = async (password: string) => {

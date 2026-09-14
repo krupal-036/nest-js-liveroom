@@ -1,3 +1,4 @@
+// backend/src/common/guards/auth.guard.ts
 import {
     CanActivate,
     ExecutionContext,

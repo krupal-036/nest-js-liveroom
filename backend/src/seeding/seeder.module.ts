@@ -1,3 +1,4 @@
+// backend/src/seeding/seeder.module.ts
 import { Module } from "@nestjs/common";
 import { SeederService } from "./seeder.service";
 import { AppConfig } from "src/common/config/AppConfig";

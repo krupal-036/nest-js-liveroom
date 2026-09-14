@@ -1,3 +1,4 @@
+// backend/src/utils/usersData.ts
 import { AppConfig } from "src/common/config/AppConfig";
 import { UserRole } from "src/enums/UserRole";
 import { CreateSeedUserDto } from "src/seeding/dto/create-seed-user.dto";

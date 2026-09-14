@@ -1,3 +1,4 @@
+// backend/src/chat/chat.module.ts
 import { Module } from "@nestjs/common";
 import { ChatGateway } from "./chat.gateway";
 import { UserRepository } from "src/users/repositories/UserRepository";
