@@ -25,6 +25,7 @@ import { useAlert } from "../context/AlertContext";
 import { renderMarkdown } from "../utils/markdown";
 import { getDateKey, getDateLabel, formatTime } from "../utils/formatDate";
 import LeaveRoomButton from "./common/LeaveRoomButton";
+import { playReactSound } from "../utils/soundEffects";
 
 interface MessageTerminalProps {
     joinedRoom: string;
@@ -199,6 +200,9 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({
     useEffect(() => {
         if (!socket) return;
         const handleReactionAdded = (data: { messageId: string; user: string; emoji: string }) => {
+            if (data.user !== username.trim()) {
+                playReactSound();
+            }
             setReactions((prev) => ({
                 ...prev,
                 [data.messageId]: { ...prev[data.messageId], [data.user]: data.emoji },
@@ -282,6 +286,7 @@ export const MessageTerminal: React.FC<MessageTerminalProps> = ({
         if (existingReaction === emoji) {
             socket?.emit("removeReaction", { messageId, user: username });
         } else {
+            playReactSound(); // <-- Play on local reaction
             socket?.emit("addReaction", { messageId, user: username, emoji });
         }
         setShowReactionPicker(null);

@@ -7,6 +7,7 @@ import type { ChatMessage, UserTypingData } from "../types/chat.types";
 import { useAuth } from "../context/AuthContext";
 import { useAlert } from "../context/AlertContext";
 import { API_URL } from "../utils/getApiURL";
+import { playClearSound, playReceiveSound } from "../utils/soundEffects";
 
 export const ChatApp: React.FC<{ onGoToAdmin?: () => void; onGoToAbout?: () => void }> = ({
     onGoToAdmin,
@@ -51,17 +52,20 @@ export const ChatApp: React.FC<{ onGoToAdmin?: () => void; onGoToAbout?: () => v
             });
             instance.on("disconnect", () => {
                 setIsConnected(false);
-                localStorage.removeItem("joinedRoom");
             });
             instance.on("roomList", (fetchedRooms: string[]) => setRooms(fetchedRooms));
             instance.on("joinedRoom", (roomName: string) => {
                 setJoinedRoom(roomName);
                 localStorage.setItem("joinedRoom", roomName);
             });
-            instance.on("chatMessage", (data: ChatMessage) =>
-                setMessages((prev) => [...prev, data]),
-            );
+            instance.on("chatMessage", (data: ChatMessage) => {
+                if (data.user !== user?.username && data.user !== "System") {
+                    playReceiveSound();
+                }
+                setMessages((prev) => [...prev, data]);
+            });
             instance.on("chatCleared", (data: { clearedBy: string }) => {
+                playClearSound();
                 setMessages([
                     { user: "System", text: `Chat successfully cleared by ${data.clearedBy}.` },
                 ]);

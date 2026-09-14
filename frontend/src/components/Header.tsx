@@ -1,5 +1,5 @@
-import React from "react";
-import { FiLogOut, FiMenu, FiShield, FiHash, FiInfo } from "react-icons/fi";
+import React, { useState } from "react";
+import { FiLogOut, FiMenu, FiShield, FiHash, FiInfo, FiVolume2, FiVolumeX } from "react-icons/fi";
 import { Logo } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import LeaveRoomButton from "./common/LeaveRoomButton";
@@ -28,6 +28,20 @@ export const Header: React.FC<HeaderProps> = ({
     onToggleSidebar,
 }) => {
     const navigate = useNavigate();
+
+    // Persist mute state in localStorage
+    const [isMuted, setIsMuted] = useState<boolean>(() => {
+        return localStorage.getItem("sound_muted") === "true";
+    });
+
+    const toggleSound = () => {
+        setIsMuted((prev) => {
+            const next = !prev;
+            localStorage.setItem("sound_muted", String(next));
+            return next;
+        });
+    };
+
     return (
         <header className="z-40 shrink-0 border-b border-stone-200/80 bg-white/80 backdrop-blur-xl dark:border-stone-800/80 dark:bg-ink-deep/80">
             <div className="flex h-16 items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4 lg:px-6">
@@ -74,6 +88,25 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+                    {/* Sound Mute / Unmute Toggle */}
+                    <button
+                        type="button"
+                        onClick={toggleSound}
+                        title={isMuted ? "Unmute sounds" : "Mute sounds"}
+                        aria-label={isMuted ? "Unmute sounds" : "Mute sounds"}
+                        className={`${iconBtn} ${
+                            isMuted
+                                ? "border-rose-200 bg-rose-50/70 text-rose-500 hover:border-rose-300 hover:text-rose-600 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-400"
+                                : ""
+                        }`}
+                    >
+                        {isMuted ? (
+                            <FiVolumeX className="h-4 w-4" />
+                        ) : (
+                            <FiVolume2 className="h-4 w-4" />
+                        )}
+                    </button>
+
                     <button
                         type="button"
                         onClick={() => navigate("/about")}
