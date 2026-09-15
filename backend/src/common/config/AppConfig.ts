@@ -104,7 +104,7 @@ const loadAndValidateConfig = () => {
                 },
             ],
         }),
-        MonogoforFeature: MongooseModule.forFeature([
+        MongoforFeature: MongooseModule.forFeature([
             {
                 name: User.name,
                 schema: UserSchema,

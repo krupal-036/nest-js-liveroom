@@ -10,10 +10,7 @@ import { useAlert } from "../context/AlertContext";
 import { API_URL } from "../utils/getApiURL";
 import { playClearSound, playReceiveSound } from "../utils/soundEffects";
 
-export const ChatApp: React.FC<{ onGoToAdmin?: () => void; onGoToAbout?: () => void }> = ({
-    onGoToAdmin,
-    onGoToAbout,
-}) => {
+export const ChatApp = () => {
     const { user, logout } = useAuth();
     const { showAlert } = useAlert();
     const [socket, setSocket] = useState<Socket | null>(null);
@@ -49,7 +46,8 @@ export const ChatApp: React.FC<{ onGoToAdmin?: () => void; onGoToAbout?: () => v
             instance.on("connect", () => {
                 setIsConnected(true);
                 instance.emit("getRooms");
-                if (joinedRoom && user) instance.emit("joinRoom", { room: joinedRoom });
+                if (rooms.includes(joinedRoom) && user)
+                    instance.emit("joinRoom", { room: joinedRoom });
             });
             instance.on("disconnect", () => {
                 setIsConnected(false);
@@ -57,7 +55,6 @@ export const ChatApp: React.FC<{ onGoToAdmin?: () => void; onGoToAbout?: () => v
             instance.on("roomList", (fetchedRooms: string[]) => setRooms(fetchedRooms));
             instance.on("joinedRoom", (roomName: string) => {
                 setJoinedRoom(roomName);
-                localStorage.setItem("joinedRoom", roomName);
             });
             instance.on("chatMessage", (data: ChatMessage) => {
                 if (data.user !== user?.username && data.user !== "System") {

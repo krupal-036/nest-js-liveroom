@@ -7,7 +7,7 @@ import { MongooseSeederRepository } from "./repositories/mongoose-seeder.repo";
 import { MysqlSeederRepository } from "./repositories/mysql-seeder.repo";
 
 @Module({
-    imports: [...(AppConfig.IS_MONGO ? [AppConfig.MonogoforFeature] : [AppConfig.MysqlforFeature])],
+    imports: [...(AppConfig.IS_MONGO ? [AppConfig.MongoforFeature] : [AppConfig.MysqlforFeature])],
     providers: [
         SeederService,
         {

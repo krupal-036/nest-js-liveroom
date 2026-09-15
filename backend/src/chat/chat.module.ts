@@ -9,7 +9,7 @@ import { JwtModule } from "@nestjs/jwt";
 
 @Module({
     imports: [
-        AppConfig.IS_MONGO ? AppConfig.MonogoforFeature : AppConfig.MysqlforFeature,
+        AppConfig.IS_MONGO ? AppConfig.MongoforFeature : AppConfig.MysqlforFeature,
         AppConfig.JwtModule,
     ],
     providers: [

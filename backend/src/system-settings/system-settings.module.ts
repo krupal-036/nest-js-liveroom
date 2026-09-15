@@ -13,7 +13,7 @@ import { MongooseSystemSettingsRepository } from "./repositories/mongoose-system
 import { MysqlSystemSettingsRepository } from "./repositories/mysql-system-settings.repo";
 
 @Module({
-    imports: [...(AppConfig.IS_MONGO ? [AppConfig.MonogoforFeature] : [AppConfig.MysqlforFeature])],
+    imports: [...(AppConfig.IS_MONGO ? [AppConfig.MongoforFeature] : [AppConfig.MysqlforFeature])],
 
     controllers: [SystemSettingsController],
 

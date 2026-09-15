@@ -1,4 +1,3 @@
-<!-- README.md -->
 # 🚀 NestJS Liveroom
 
 **NestJS-Liveroom** is a real-time WebSocket application demonstrating a production-oriented approach to dynamic room management. It combines **NestJS, Socket.IO, and React** to create scalable live rooms where clients can dynamically join, communicate, and synchronize real-time state.
@@ -181,7 +180,6 @@ Console output is labeled and color-coded (`FRONTEND` in cyan, `BACKEND` in mage
 | `npm run build:frontend` | Generates the sitemap and builds the frontend |
 | `npm run build:backend` | Builds the backend only |
 | `npm run copy:frontend` | Copies the compiled frontend build into the backend directory |
-| `npm run postbuild` | Generates the sitemap (`scripts/generate-sitemap.js`) |
 | `npm run format` | Formats both frontend and backend source files with Prettier |
 | `npm run db:reset` | Resets the backend database |
 | `npm run clean` | Cleans backend build artifacts |
