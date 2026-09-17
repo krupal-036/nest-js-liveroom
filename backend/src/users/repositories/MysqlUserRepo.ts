@@ -1,11 +1,11 @@
 // backend/src/users/repositories/MysqlUserRepo.ts
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { UserRepository } from "./UserRepository";
-import { InjectRepository } from "@nestjs/typeorm";
-import { UserEntity } from "../entities/user.mysql.entity";
 import { Repository } from "typeorm";
-import { CreateUserDto } from "../dto/create-user.dto";
-import { UpdateUserDto } from "../dto/update-user.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { CreateUserDto } from "@/users/dto/create-user.dto";
+import { UpdateUserDto } from "@/users/dto/update-user.dto";
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { UserEntity } from "@/users/entities/user.mysql.entity";
+import { UserRepository } from "@/users/repositories/UserRepository";
 
 @Injectable()
 export class MysqlUserRepo implements UserRepository {

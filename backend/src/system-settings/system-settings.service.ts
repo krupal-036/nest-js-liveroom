@@ -1,10 +1,9 @@
 // backend/src/system-settings/system-settings.service.ts
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
-
 import {
     SystemSettingsRepository,
     UpdateSystemSettingsData,
-} from "./repositories/SystemSettingsRepository";
+} from "@/system-settings/repositories/SystemSettingsRepository";
 
 @Injectable()
 export class SystemSettingsService {

@@ -1,11 +1,11 @@
 // backend/src/users/repositories/MongooseUserRepo.ts
 import { Injectable } from "@nestjs/common";
+import { Model, QueryFilter } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { DeleteResult, Model, QueryFilter } from "mongoose";
-import { CreateUserDto } from "../dto/create-user.dto";
-import { User } from "../entities/user.mongoose.entity";
-import { UserRepository } from "./UserRepository";
-import { UpdateUserDto } from "../dto/update-user.dto";
+import { CreateUserDto } from "@/users/dto/create-user.dto";
+import { UpdateUserDto } from "@/users/dto/update-user.dto";
+import { User } from "@/users/entities/user.mongoose.entity";
+import { UserRepository } from "@/users/repositories/UserRepository";
 
 @Injectable()
 export class MongooseUserRepo implements UserRepository {

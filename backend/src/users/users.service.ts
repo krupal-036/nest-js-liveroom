@@ -6,14 +6,14 @@ import {
     Injectable,
     NotFoundException,
 } from "@nestjs/common";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
 import { JwtService } from "@nestjs/jwt";
-import { comparePassword } from "src/utils/passwordUtils";
-import { UserRepository } from "./repositories/UserRepository";
-import { UserRole } from "src/enums/UserRole";
-import { JwtUserPayLoad } from "src/types/types";
-import { SystemSettingsService } from "src/system-settings/system-settings.service";
+import { UserRole } from "@/enums/UserRole";
+import { JwtUserPayLoad } from "@/types/types";
+import { comparePassword } from "@/utils/passwordUtils";
+import { CreateUserDto } from "@/users/dto/create-user.dto";
+import { UpdateUserDto } from "@/users/dto/update-user.dto";
+import { UserRepository } from "@/users/repositories/UserRepository";
+import { SystemSettingsService } from "@/system-settings/system-settings.service";
 
 @Injectable()
 export class UsersService {

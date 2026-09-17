@@ -1,16 +1,11 @@
 // backend/src/system-settings/system-settings.module.ts
 import { Module } from "@nestjs/common";
-import { MongooseModule } from "@nestjs/mongoose";
-import { TypeOrmModule } from "@nestjs/typeorm";
-
-import { AppConfig } from "src/common/config/AppConfig";
-
-import { SystemSettingsService } from "./system-settings.service";
-import { SystemSettingsController } from "./system-settings.controller";
-
-import { SystemSettingsRepository } from "./repositories/SystemSettingsRepository";
-import { MongooseSystemSettingsRepository } from "./repositories/mongoose-system-settings.repo";
-import { MysqlSystemSettingsRepository } from "./repositories/mysql-system-settings.repo";
+import { AppConfig } from "@/common/config/AppConfig";
+import { SystemSettingsService } from "@/system-settings/system-settings.service";
+import { SystemSettingsController } from "@/system-settings/system-settings.controller";
+import { SystemSettingsRepository } from "@/system-settings/repositories/SystemSettingsRepository";
+import { MysqlSystemSettingsRepository } from "@/system-settings/repositories/mysql-system-settings.repo";
+import { MongooseSystemSettingsRepository } from "@/system-settings/repositories/mongoose-system-settings.repo";
 
 @Module({
     imports: [...(AppConfig.IS_MONGO ? [AppConfig.MongoforFeature] : [AppConfig.MysqlforFeature])],

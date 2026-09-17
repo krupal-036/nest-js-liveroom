@@ -1,6 +1,6 @@
 // backend/src/users/repositories/UserRepository.ts
-import { CreateUserDto } from "../dto/create-user.dto";
-import { UpdateUserDto } from "../dto/update-user.dto";
+import { CreateUserDto } from "@/users/dto/create-user.dto";
+import { UpdateUserDto } from "@/users/dto/update-user.dto";
 
 export abstract class UserRepository {
     abstract create(createUserDto: CreateUserDto): Promise<any>;

@@ -1,14 +1,14 @@
 // backend/src/app.module.ts
-import { Module, ValidationPipe } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { UsersModule } from "./users/users.module";
-import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
-import { AppConfig } from "./common/config/AppConfig";
-import { LoggingInterceptor } from "src/common/interceptors/logging.interceptor";
-import { ChatModule } from "./chat/chat.module";
+import { ChatModule } from "@/chat/chat.module";
+import { AppController } from "@/app.controller";
+import { UsersModule } from "@/users/users.module";
 import { ThrottlerGuard } from "@nestjs/throttler";
-import { SeederModule } from "./seeding/seeder.module";
-import { SystemSettingsModule } from "./system-settings/system-settings.module";
+import { AppConfig } from "@/common/config/AppConfig";
+import { SeederModule } from "@/seeding/seeder.module";
+import { Module, ValidationPipe } from "@nestjs/common";
+import { APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
+import { LoggingInterceptor } from "@/common/interceptors/logging.interceptor";
+import { SystemSettingsModule } from "@/system-settings/system-settings.module";
 
 @Module({
     imports: [

@@ -1,10 +1,8 @@
 // backend/src/seeding/seeder.service.ts
+import { USERS } from "@/utils/usersData";
+import { AppConfig } from "@/common/config/AppConfig";
+import { SeederRepository } from "@/seeding/repositories/SeederRepo";
 import { Injectable, OnApplicationBootstrap } from "@nestjs/common";
-
-import { AppConfig } from "src/common/config/AppConfig";
-import { USERS } from "src/utils/usersData";
-
-import { SeederRepository } from "./repositories/SeederRepo";
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {

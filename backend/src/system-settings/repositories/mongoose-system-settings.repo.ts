@@ -1,10 +1,15 @@
 // backend/src/system-settings/repositories/mongoose-system-settings.repo.ts
+import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-
-import { SystemSettingsRepository, UpdateSystemSettingsData } from "./SystemSettingsRepository";
-import { SystemSettings, SystemSettingsDocument } from "../entities/system-settings.schema";
+import {
+    SystemSettings,
+    SystemSettingsDocument,
+} from "@/system-settings/entities/system-settings.schema";
+import {
+    SystemSettingsRepository,
+    UpdateSystemSettingsData,
+} from "@/system-settings/repositories/SystemSettingsRepository";
 
 @Injectable()
 export class MongooseSystemSettingsRepository implements SystemSettingsRepository {

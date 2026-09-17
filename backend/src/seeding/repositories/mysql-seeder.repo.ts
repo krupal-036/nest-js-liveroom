@@ -1,13 +1,11 @@
 // backend/src/seeding/repositories/mysql-seeder.repo.ts
+import { Repository } from "typeorm";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-
-import { UserEntity } from "src/users/entities/user.mysql.entity";
-
-import { SeederRepository } from "./SeederRepo";
-import { CreateSeedUserDto } from "../dto/create-seed-user.dto";
-import { SystemSettingsEntity } from "src/system-settings/entities/system-settings.entity";
+import { UserEntity } from "@/users/entities/user.mysql.entity";
+import { SeederRepository } from "@/seeding/repositories/SeederRepo";
+import { CreateSeedUserDto } from "@/seeding/dto/create-seed-user.dto";
+import { SystemSettingsEntity } from "@/system-settings/entities/system-settings.entity";
 
 @Injectable()
 export class MysqlSeederRepository implements SeederRepository {

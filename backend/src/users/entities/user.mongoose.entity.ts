@@ -1,7 +1,7 @@
 // backend/src/users/entities/user.mongoose.entity.ts
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { hashPassword } from "src/utils/passwordUtils";
+import { hashPassword } from "@/utils/passwordUtils";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 @Schema({ timestamps: true })
 export class User extends Document {

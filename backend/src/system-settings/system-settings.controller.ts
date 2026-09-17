@@ -1,10 +1,8 @@
 // backend/src/system-settings/system-settings.controller.ts
+import { Roles } from "@/common/decorators/roles.decorator";
 import { Body, Controller, Get, Patch } from "@nestjs/common";
-
-import { Roles } from "src/common/decorators/roles.decorator";
-
-import { SystemSettingsService } from "./system-settings.service";
-import { UpdateSystemSettingsDto } from "./dto/update-system-settings.dto";
+import { SystemSettingsService } from "@/system-settings/system-settings.service";
+import { UpdateSystemSettingsDto } from "@/system-settings/dto/update-system-settings.dto";
 
 @Controller("system-settings")
 export class SystemSettingsController {

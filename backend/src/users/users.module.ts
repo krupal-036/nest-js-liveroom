@@ -1,14 +1,14 @@
 // backend/src/users/users.module.ts
 import { Module } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { UsersController } from "./users.controller";
 import { APP_GUARD } from "@nestjs/core";
-import { AuthGuard } from "../common/guards/auth.guard";
-import { AppConfig } from "src/common/config/AppConfig";
-import { UserRepository } from "./repositories/UserRepository";
-import { MongooseUserRepo } from "./repositories/MongooseUserRepo";
-import { MysqlUserRepo } from "./repositories/MysqlUserRepo";
-import { SystemSettingsModule } from "src/system-settings/system-settings.module";
+import { UsersService } from "@/users/users.service";
+import { AppConfig } from "@/common/config/AppConfig";
+import { AuthGuard } from "@/common/guards/auth.guard";
+import { UsersController } from "@/users/users.controller";
+import { MysqlUserRepo } from "@/users/repositories/MysqlUserRepo";
+import { UserRepository } from "@/users/repositories/UserRepository";
+import { MongooseUserRepo } from "@/users/repositories/MongooseUserRepo";
+import { SystemSettingsModule } from "@/system-settings/system-settings.module";
 
 @Module({
     imports: [

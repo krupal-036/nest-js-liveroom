@@ -1,18 +1,18 @@
 // backend/src/common/config/AppConfig.ts
 import { JwtModule } from "@nestjs/jwt";
-import { MongooseModule } from "@nestjs/mongoose";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { plainToInstance } from "class-transformer";
-import { IsNumber, IsString, validateSync } from "class-validator";
-import { DATABASE_TYPE } from "src/enums/Database";
-import { User, UserSchema } from "src/users/entities/user.mongoose.entity";
-import { UserEntity } from "src/users/entities/user.mysql.entity";
+import { DATABASE_TYPE } from "@/enums/Database";
+import { MongooseModule } from "@nestjs/mongoose";
 import { ThrottlerModule } from "@nestjs/throttler";
+import { plainToInstance } from "class-transformer";
+import { UserEntity } from "@/users/entities/user.mysql.entity";
+import { IsNumber, IsString, validateSync } from "class-validator";
+import { User, UserSchema } from "@/users/entities/user.mongoose.entity";
 import {
     SystemSettings,
     SystemSettingsSchema,
-} from "src/system-settings/entities/system-settings.schema";
-import { SystemSettingsEntity } from "src/system-settings/entities/system-settings.entity";
+} from "@/system-settings/entities/system-settings.schema";
+import { SystemSettingsEntity } from "@/system-settings/entities/system-settings.entity";
 
 class EnvironmentVar {
     @IsNumber()
