@@ -1,13 +1,11 @@
 // backend/src/seeding/repositories/mongoose-seeder.repo.ts
+import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
-
-import { User } from "src/users/entities/user.mongoose.entity";
-
-import { SeederRepository } from "./SeederRepo";
-import { CreateSeedUserDto } from "../dto/create-seed-user.dto";
-import { SystemSettings } from "src/system-settings/entities/system-settings.schema";
+import { User } from "@/users/entities/user.mongoose.entity";
+import { SeederRepository } from "@/seeding/repositories/SeederRepo";
+import { CreateSeedUserDto } from "@/seeding/dto/create-seed-user.dto";
+import { SystemSettings } from "@/system-settings/entities/system-settings.schema";
 
 @Injectable()
 export class MongooseSeederRepository implements SeederRepository {

@@ -1,10 +1,12 @@
 // backend/src/system-settings/repositories/mysql-system-settings.repo.ts
+import { Repository } from "typeorm";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-
-import { SystemSettingsRepository, UpdateSystemSettingsData } from "./SystemSettingsRepository";
-import { SystemSettingsEntity } from "../entities/system-settings.entity";
+import { SystemSettingsEntity } from "@/system-settings/entities/system-settings.entity";
+import {
+    SystemSettingsRepository,
+    UpdateSystemSettingsData,
+} from "@/system-settings/repositories/SystemSettingsRepository";
 
 @Injectable()
 export class MysqlSystemSettingsRepository implements SystemSettingsRepository {

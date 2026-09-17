@@ -1,6 +1,6 @@
 // backend/src/system-settings/entities/system-settings.schema.ts
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
 export type SystemSettingsDocument = HydratedDocument<SystemSettings>;
 

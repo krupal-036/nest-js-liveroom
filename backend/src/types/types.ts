@@ -1,5 +1,5 @@
 // backend/src/types/types.ts
-import { UserRole } from "src/enums/UserRole";
+import { UserRole } from "@/enums/UserRole";
 
 export interface JwtUserPayLoad {
     id: string;

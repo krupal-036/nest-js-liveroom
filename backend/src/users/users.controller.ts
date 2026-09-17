@@ -12,16 +12,16 @@ import {
     Res,
     Req,
 } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { ParseObjectIdPipe } from "@nestjs/mongoose";
-import { Public } from "../common/decorators/public.decorator";
-import { Roles } from "../common/decorators/roles.decorator";
-import { AppConfig } from "src/common/config/AppConfig";
-import type { Request, Response } from "express";
-import { JwtUserPayLoad } from "src/types/types";
 import { Throttle } from "@nestjs/throttler";
+import { JwtUserPayLoad } from "@/types/types";
+import type { Request, Response } from "express";
+import { UsersService } from "@/users/users.service";
+import { ParseObjectIdPipe } from "@nestjs/mongoose";
+import { AppConfig } from "@/common/config/AppConfig";
+import { UpdateUserDto } from "@/users/dto/update-user.dto";
+import { Roles } from "@/common/decorators/roles.decorator";
+import { CreateUserDto } from "@/users/dto/create-user.dto";
+import { Public } from "@/common/decorators/public.decorator";
 
 @Controller("users")
 export class UsersController {

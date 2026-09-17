@@ -1,5 +1,4 @@
 // backend/src/chat/chat.gateway.ts
-import { JwtService } from "@nestjs/jwt";
 import {
     SubscribeMessage,
     WebSocketGateway,
@@ -9,8 +8,9 @@ import {
     OnGatewayDisconnect,
     OnGatewayConnection,
 } from "@nestjs/websockets";
+import { JwtService } from "@nestjs/jwt";
 import { Server, Socket } from "socket.io";
-import { UserRepository } from "src/users/repositories/UserRepository";
+import { UserRepository } from "@/users/repositories/UserRepository";
 
 @WebSocketGateway({
     cors: {

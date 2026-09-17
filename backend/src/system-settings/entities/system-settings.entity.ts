@@ -1,6 +1,6 @@
 // backend/src/system-settings/entities/system-settings.entity.ts
-import { BeforeInsert, Column, Entity, PrimaryColumn } from "typeorm";
 import { Types } from "mongoose";
+import { BeforeInsert, Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity("system_settings")
 export class SystemSettingsEntity {
