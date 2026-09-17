@@ -12,11 +12,11 @@ import {
     FiShield,
     FiSliders,
 } from "react-icons/fi";
-import { Logo } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
+import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Footer } from "./Footer";
+import { useAuth } from "@/context/AuthContext";
+import { Footer } from "@/components/Footer";
 
 const CAPABILITIES = [
     {

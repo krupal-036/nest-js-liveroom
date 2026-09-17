@@ -12,11 +12,11 @@ import {
     FiSend,
     FiLock,
 } from "react-icons/fi";
-import { Logo } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
+import { Logo } from "@/components/Logo";
+import { Footer } from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Footer } from "./Footer";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const FEATURES = [
     {

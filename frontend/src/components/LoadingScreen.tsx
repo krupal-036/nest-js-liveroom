@@ -1,6 +1,6 @@
 // frontend/src/components/LoadingScreen.tsx
 import React from "react";
-import { Logo } from "./Logo";
+import { Logo } from "@/components/Logo";
 
 export const LoadingScreen: React.FC = () => (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-cream-soft dark:bg-ink-deep">

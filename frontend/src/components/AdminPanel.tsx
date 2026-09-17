@@ -1,8 +1,8 @@
 // frontend/src/components/AdminPanel.tsx
 import { useState, useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useAlert } from "../context/AlertContext";
-import { API_URL } from "../utils/getApiURL";
+import { useAuth } from "@/context/AuthContext";
+import { useAlert } from "@/context/AlertContext";
+import { API_URL } from "@/utils/getApiURL";
 import {
     FiShield,
     FiTrash2,
@@ -16,7 +16,7 @@ import {
     FiUserPlus,
 } from "react-icons/fi";
 import { FaBan } from "react-icons/fa";
-import { ThemeToggle } from "./ThemeToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useNavigate } from "react-router-dom";
 
 interface User {
