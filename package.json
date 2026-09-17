@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/krupal-036/nest-js-liveroom.git"
   },
-  "keywords": [],
+  "keywords": ["nest-js-liveroom", "real-time-chat-application"],
   "author": "krupal-036",
   "bugs": {
     "url": "https://github.com/krupal-036/nest-js-liveroom/issues"
