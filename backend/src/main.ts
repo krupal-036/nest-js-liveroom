@@ -1,14 +1,14 @@
 // backend/src/main.ts
 import "dotenv/config";
 import { NestFactory } from "@nestjs/core";
-import { AppModule } from "./app.module";
+import { AppModule } from "@/app.module";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { join } from "path";
-import { AppConfig } from "./common/config/AppConfig";
+import { AppConfig } from "@/common/config/AppConfig";
 import cookieParser from "cookie-parser";
-import { LoggerMiddleware } from "./common/middleware/logger.middleware";
+import { LoggerMiddleware } from "@/common/middleware/logger.middleware";
 import { UnauthorizedException } from "@nestjs/common";
-import { SpaExceptionFilter } from "./common/filters/spa-exception.filter";
+import { SpaExceptionFilter } from "@/common/filters/spa-exception.filter";
 
 async function bootstrap() {
     const app = await NestFactory.create<NestExpressApplication>(AppModule);
