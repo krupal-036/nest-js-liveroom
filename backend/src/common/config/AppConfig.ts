@@ -73,7 +73,6 @@ const loadAndValidateConfig = () => {
 
     return Object.freeze({
         ...validatedConfig,
-        PORT: Number(process.env.PORT) || 3000,
         MongoforRoot: MongooseModule.forRoot(validatedConfig.MONGO_URI, {
             dbName: validatedConfig.MONGO_DATABASE,
             bufferCommands: false,
@@ -119,7 +118,7 @@ const loadAndValidateConfig = () => {
         JwtModule: JwtModule.register({
             global: true,
             secret: validatedConfig.JWT_SECRET,
-            signOptions: { expiresIn: "30d" },
+            signOptions: { expiresIn: "10d" },
         }),
     });
 };
