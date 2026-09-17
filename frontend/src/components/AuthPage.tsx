@@ -1,6 +1,6 @@
 // frontend/src/components/AuthPage.tsx
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import {
     FiUser,
     FiMail,
@@ -15,8 +15,8 @@ import {
     FiHash,
     FiShield,
 } from "react-icons/fi";
-import { Logo } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
+import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { useNavigate } from "react-router-dom";
 
 interface ValidationErrors {

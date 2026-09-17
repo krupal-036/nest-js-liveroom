@@ -1,17 +1,19 @@
 // frontend/src/App.tsx
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { ThemeProvider } from "./context/ThemeContext";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import { AlertProvider } from "./context/AlertContext";
-import { ChatApp } from "./components/ChatApp";
-import { AuthPage } from "./components/AuthPage";
-import { AdminPanel } from "./components/AdminPanel";
-import { HomePage } from "./components/HomePage";
-import { AboutPage } from "./components/AboutPage";
-import { LoadingScreen } from "./components/LoadingScreen";
-import { BackToTop } from "./components/common/BackToTop";
-import { NotFound } from "./components/NotFound";
+
+import { AlertProvider } from "@/context/AlertContext";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+
+import { ChatApp } from "@/components/ChatApp";
+import { NotFound } from "@/components/NotFound";
+import { AuthPage } from "@/components/AuthPage";
+import { HomePage } from "@/components/HomePage";
+import { AboutPage } from "@/components/AboutPage";
+import { AdminPanel } from "@/components/AdminPanel";
+import { BackToTop } from "@/components/common/BackToTop";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();

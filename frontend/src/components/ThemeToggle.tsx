@@ -1,7 +1,7 @@
 // frontend/src/components/ThemeToggle.tsx
 import React from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
-import { useTheme } from "../context/ThemeContext";
+import { useTheme } from "@/context/ThemeContext";
 
 export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }) => {
     const { theme, toggleTheme } = useTheme();

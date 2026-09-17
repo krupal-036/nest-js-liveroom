@@ -1,9 +1,9 @@
 // frontend/src/components/Header.tsx
 import React, { useState } from "react";
 import { FiLogOut, FiMenu, FiShield, FiHash, FiInfo, FiVolume2, FiVolumeX } from "react-icons/fi";
-import { Logo } from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
-import LeaveRoomButton from "./common/LeaveRoomButton";
+import { Logo } from "@/components/Logo";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import LeaveRoomButton from "@/components/common/LeaveRoomButton";
 import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {

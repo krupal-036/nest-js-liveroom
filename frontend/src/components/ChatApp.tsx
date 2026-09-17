@@ -1,14 +1,14 @@
 // frontend/src/components/ChatApp.tsx
 import React, { useState, useEffect, useRef, type SubmitEvent } from "react";
 import { io, Socket } from "socket.io-client";
-import { Header } from "./Header";
-import { RoomSidebar } from "./RoomSidebar";
-import { MessageTerminal } from "./MessageTerminal";
-import type { ChatMessage, UserTypingData } from "../types/chat.types";
-import { useAuth } from "../context/AuthContext";
-import { useAlert } from "../context/AlertContext";
-import { API_URL } from "../utils/getApiURL";
-import { playClearSound, playReceiveSound } from "../utils/soundEffects";
+import { Header } from "@/components/Header";
+import { RoomSidebar } from "@/components/RoomSidebar";
+import { MessageTerminal } from "@/components/MessageTerminal";
+import type { ChatMessage, UserTypingData } from "@/types/chat.types";
+import { useAuth } from "@/context/AuthContext";
+import { useAlert } from "@/context/AlertContext";
+import { API_URL } from "@/utils/getApiURL";
+import { playClearSound, playReceiveSound } from "@/utils/soundEffects";
 
 export const ChatApp = () => {
     const { user, logout } = useAuth();

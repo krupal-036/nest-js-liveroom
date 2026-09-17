@@ -1,8 +1,8 @@
 // frontend/src/components/Footer.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { Logo } from "./Logo";
-import { useAuth } from "../context/AuthContext";
+import { Logo } from "@/components/Logo";
+import { useAuth } from "@/context/AuthContext";
 
 const linkCls =
     "rounded text-xs font-semibold text-stone-500 transition-colors hover:text-emerald-600 dark:text-stone-400 dark:hover:text-emerald-400";

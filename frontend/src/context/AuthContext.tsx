@@ -1,6 +1,6 @@
 // frontend/src/context/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { API_URL } from "../utils/getApiURL";
+import { API_URL } from "@/utils/getApiURL";
 
 interface User {
     id: string;

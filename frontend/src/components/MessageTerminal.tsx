@@ -19,14 +19,14 @@ import {
     FiTrash2,
     FiArrowDown,
 } from "react-icons/fi";
+import { renderMarkdown } from "@/utils/markdown";
+import { useAlert } from "@/context/AlertContext";
+import { useTheme } from "@/context/ThemeContext";
+import type { ChatMessage } from "@/types/chat.types";
+import { playReactSound } from "@/utils/soundEffects";
+import LeaveRoomButton from "@/components/common/LeaveRoomButton";
+import { getDateKey, getDateLabel, formatTime } from "@/utils/formatDate";
 import EmojiPicker, { type EmojiClickData, Theme } from "emoji-picker-react";
-import type { ChatMessage } from "../types/chat.types";
-import { useTheme } from "../context/ThemeContext";
-import { useAlert } from "../context/AlertContext";
-import { renderMarkdown } from "../utils/markdown";
-import { getDateKey, getDateLabel, formatTime } from "../utils/formatDate";
-import LeaveRoomButton from "./common/LeaveRoomButton";
-import { playReactSound } from "../utils/soundEffects";
 
 interface MessageTerminalProps {
     joinedRoom: string;
