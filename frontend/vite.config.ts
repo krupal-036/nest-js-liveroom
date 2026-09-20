@@ -12,7 +12,11 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': {} 
     },
-    
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
+    },
     server: {
       proxy: (mode === 'development' || env.VITE_ENABLE_PROXY === 'true') ? {
         '/api': {
