@@ -15,14 +15,26 @@
     "dev": "concurrently -p \"[{name}]\" -n \"FRONTEND,BACKEND\" -c cyan,magenta \"npm run dev --prefix frontend\" \"npm run start:dev --prefix backend\"",
     "db:reset": "npm run db:reset --prefix backend",
     "format": "concurrently -p \"[{name}]\" -n \"FRONTEND,BACKEND\" -c cyan,magenta \"npm run format --prefix frontend\" \"npm run format --prefix backend\"",
+    "prebuild": "node scripts/getfilenames.js && npm run format",
     "postinstall": "npm install --prefix frontend && npm install --prefix backend",
-    "prebuild": "node scripts/getfilenames.js && npm run format"
+    "docker:build": "docker compose --env-file backend/.env build",
+    "docker:up": "docker compose --env-file backend/.env up -d",
+    "docker:down": "docker compose --env-file backend/.env down",
+    "docker:logs": "docker compose --env-file backend/.env logs -f app",
+    "docker:restart": "docker compose --env-file backend/.env restart app",
+    "docker:rebuild": "docker compose --env-file backend/.env up -d --build",
+    "docker:pull": "docker compose --env-file backend/.env pull",
+    "docker:push": "docker compose --env-file backend/.env push app",
+    "docker:clean": "docker compose --env-file backend/.env down --rmi local --volumes"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/krupal-036/nest-js-liveroom.git"
   },
-  "keywords": ["nest-js-liveroom", "real-time-chat-application"],
+  "keywords": [
+    "nest-js-liveroom",
+    "real-time-chat-application"
+  ],
   "author": "krupal-036",
   "bugs": {
     "url": "https://github.com/krupal-036/nest-js-liveroom/issues"
