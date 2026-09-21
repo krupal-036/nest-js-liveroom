@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: nestjs_liveroom_app
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - backend/.env
+    environment:
+      - PORT=3000
+      - MONGO_URI=mongodb://mongodb:27017
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - ALLOWED_ORIGINS=http://localhost:3000
+    depends_on:
+      - mongodb
+      - mysql
+
+  mongodb:
+    image: mongo:7.0
+    container_name: nestjs_liveroom_mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  mysql:
+    image: mysql:8.0
+    container_name: nestjs_liveroom_mysql
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=chatapp
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mongo_data:
+  mysql_data:

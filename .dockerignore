@@ -1,0 +1,43 @@
+# Ignore all node_modules everywhere (root, backend, frontend)
+**/node_modules
+node_modules
+
+# Ignore all build output / dist folders
+**/dist
+dist
+backend/dist
+frontend/dist
+
+# Ignore Next.js / cache folders if any
+**/.next
+.next
+**/.turbo
+.turbo
+
+# Ignore local environment files (so secrets aren't baked into the image)
+**/.env
+**/.env.*
+
+# EXCEPT the frontend .env needed at build time:
+!frontend/.env
+
+# Ignore Git metadata
+.git
+.gitignore
+
+# Ignore Docker files themselves
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Ignore logs & debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
+
+# Ignore OS / IDE specific files
+.DS_Store
+.idea/
+.vscode/
+Thumbs.db
