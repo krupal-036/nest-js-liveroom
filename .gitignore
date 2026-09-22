@@ -104,3 +104,5 @@ frontend/.vite/
 backend/vercel.json
 /scripts
 z
+*index.py
+*payload.md
