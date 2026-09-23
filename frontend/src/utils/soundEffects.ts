@@ -78,18 +78,45 @@ const playAudio = (base64: string, volume = 0.16, playbackRate = 1) => {
     }
 };
 
+export const playTypingSound = (volume: number = 0.3) => {
+    if (isMuted()) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    if (ctx.state === "suspended") {
+        ctx.resume().catch(() => undefined);
+    }
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(600, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.05);
+
+    const peakGain = Math.min(Math.max(volume, 0), 1.0);
+    gain.gain.setValueAtTime(peakGain, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 0.05);
+};
+
 export const playSendSound = () => {
-    playAudio(SEND_SOUND_B64, 0.14, 1);
+    playAudio(SEND_SOUND_B64, 0.9, 1);
 };
 
 export const playReceiveSound = () => {
-    playAudio(RECEIVE_SOUND_B64, 0.16, 1);
+    playAudio(RECEIVE_SOUND_B64, 0.9, 1);
 };
 
 export const playReactSound = () => {
-    playAudio(REACT_SOUND_B64, 0.13, 1);
+    playAudio(REACT_SOUND_B64, 0.9, 1);
 };
 
 export const playClearSound = () => {
-    playAudio(CLEAR_SOUND_B64, 0.15, 1);
+    playAudio(CLEAR_SOUND_B64, 0.9, 1);
 };
