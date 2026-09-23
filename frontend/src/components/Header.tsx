@@ -1,6 +1,15 @@
 // frontend/src/components/Header.tsx
 import React, { useState } from "react";
-import { FiLogOut, FiMenu, FiShield, FiHash, FiInfo, FiVolume2, FiVolumeX } from "react-icons/fi";
+import {
+    FiLogOut,
+    FiMenu,
+    FiShield,
+    FiHash,
+    FiInfo,
+    FiVolume2,
+    FiVolumeX,
+    FiAirplay,
+} from "react-icons/fi";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import LeaveRoomButton from "@/components/common/LeaveRoomButton";
@@ -14,6 +23,8 @@ interface HeaderProps {
     userRole?: string;
     onLogout?: () => void;
     onToggleSidebar: () => void;
+    isPipActive?: boolean;
+    onTogglePip?: () => void;
 }
 
 const iconBtn =
@@ -27,6 +38,8 @@ export const Header: React.FC<HeaderProps> = ({
     userRole,
     onLogout,
     onToggleSidebar,
+    isPipActive,
+    onTogglePip,
 }) => {
     const navigate = useNavigate();
 
@@ -89,6 +102,24 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+                    {onTogglePip && (
+                        <button
+                            type="button"
+                            onClick={onTogglePip}
+                            title={
+                                isPipActive ? "Exit Picture-in-Picture" : "Picture-in-Picture mode"
+                            }
+                            aria-label="Picture-in-Picture"
+                            className={`${iconBtn} ${
+                                isPipActive
+                                    ? "border-emerald-500 bg-emerald-50 text-emerald-600 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-400"
+                                    : ""
+                            }`}
+                        >
+                            <FiAirplay className="h-4 w-4" />
+                        </button>
+                    )}
+
                     {/* Sound Mute / Unmute Toggle */}
                     <button
                         type="button"
